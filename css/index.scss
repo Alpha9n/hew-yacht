@@ -1,0 +1,36 @@
+$glassColor: rgb(221, 221, 221, 0.5);
+
+
+.wrapper {
+    margin: 20px auto;
+    width: 80vw;
+    height: 60vh;
+    background-color: $glassColor;
+    padding: 50px 0;
+    .title {
+        background-color: rgb(34, 34, 34);
+        color: rgb(221, 221, 221);
+        width: 60%;
+        margin: 0 auto;
+        text-align: center;
+    }
+    .gameMode {
+        list-style-type: none;
+        margin-top: 50px;
+        li {
+            margin: 0 auto;
+            margin-top: 30px;
+            width: fit-content;
+            #settings {
+                background-color: rgb(130, 130, 130);
+                color: rgb(255, 255, 255);
+            }
+        }
+    }
+}
+
+.comingsoon {
+    color: #858585;
+    text-decoration: line-through;
+    pointer-events: none;
+}
