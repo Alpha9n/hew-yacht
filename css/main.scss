@@ -2,7 +2,6 @@
     margin: 0;
     padding: 0;
     text-decoration: none;
-    border-radius: 5px;
 }
 
 
@@ -11,6 +10,7 @@ a {
     transition: background-color 0.2s;
     background-color: rgb(255, 255, 255);
     padding: 10px 30px;
+    border-radius: 5px;
     &:hover {
         background-color: rgb(69, 69, 69);
         color: white;

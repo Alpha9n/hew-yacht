@@ -1,0 +1,41 @@
+$tableBorder: 3px solid rgb(36, 36, 36);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+#game {
+    background-color: rgb(228, 228, 228);
+    width: 100vw;
+    height: 100vh;
+    padding: 20px;
+    #scoreBoard {
+        width: 100%;
+        border: 1px solid;
+        overflow: scroll;
+        padding: 0.5rem;
+        table {
+            margin: 5px;
+            width: 100%;
+            border-collapse: collapse;
+            border: $tableBorder;
+            tr {
+                border: $tableBorder;
+                td {
+                    border: $tableBorder;
+                    overflow: hidden;
+                }
+                .hand {
+                    width: 20%;
+                }
+                .player1 {
+                    width: 40%;
+                }
+                .player2 { 
+                    width: 40%;
+                }
+            }
+        }
+    }
+}

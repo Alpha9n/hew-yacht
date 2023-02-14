@@ -4,6 +4,7 @@
   height: 60vh;
   background-color: rgba(221, 221, 221, 0.5);
   padding: 50px 0;
+  border-radius: 5px;
 }
 .wrapper .title {
   background-color: rgb(34, 34, 34);
