@@ -1,41 +1,156 @@
-$tableBorder: 3px solid rgb(36, 36, 36);
+$backGroundColor: rgb(238, 238, 238);
+$borderColor: rgb(78, 78, 78);
+$tableBorder: 3px solid $borderColor;
 
 * {
     margin: 0;
     padding: 0;
+    transition: all .1s ease-in-out;
 }
 
 #game {
-    background-color: rgb(228, 228, 228);
-    width: 100vw;
-    height: 100vh;
+    background-color: $backGroundColor;
+    margin: 2rem auto;
+    width: 90vw;
+    height: 89vh;
     padding: 20px;
-    #scoreBoard {
-        width: 100%;
-        border: 1px solid;
-        overflow: scroll;
-        padding: 0.5rem;
-        table {
-            margin: 5px;
-            width: 100%;
-            border-collapse: collapse;
-            border: $tableBorder;
-            tr {
+    display: flex;
+    justify-content: space-around;
+    border-radius: 10px;
+    background-image: url(../images/table.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    #dataSection {
+        display: block;
+        width: 30%;
+        overflow: hidden;
+        padding: 1rem;
+        margin: 10px;
+        background-color: $backGroundColor;
+        box-shadow: 9px 14px 31px -3px #3a3a3a;
+        #scoreBoard {
+            table {
+                margin: 5px;
+                width: 90%;
+                border-collapse: collapse;
                 border: $tableBorder;
-                td {
+                tr {
                     border: $tableBorder;
-                    overflow: hidden;
+                    td {
+                        padding: 5px 5px;
+                        border: $tableBorder;
+                        overflow: hidden;
+                    }
+                    .hand {
+                        width: 50%;
+                        font-size: small;
+                    }
+                    .total {
+                        padding: 10px 0;
+                    }
+                    .player1 {
+                        width: 25%;
+                    }
+                    .player2 { 
+                        width: 25%;
+                    }
                 }
-                .hand {
-                    width: 20%;
-                }
-                .player1 {
-                    width: 40%;
-                }
-                .player2 { 
-                    width: 40%;
+                .title {
+                    font-weight: bold;
+                    font-size: medium;
+                    color: white;
+                    background-color: $borderColor;
+                    text-align: center;
+                    .player1,.player2 {
+                        background-color: $backGroundColor;
+                    }
                 }
             }
         }
+        #turnData {
+            width: 70%;
+            border: 1px solid;
+            margin: 30px auto;
+            padding: 5px;
+            border-radius: 10px;
+            background-color: $borderColor;
+            * {
+                text-align: center;
+                font-size: 2rem;
+                color: white;
+            }
+            p {
+                font-size: 3em;
+                font-weight: lighter;
+                color: rgb(199, 199, 199);
+            }
+            #turnNum {
+                font-size: 1.5em;
+                font-weight: lighter;
+                margin: 2px;
+            }
+        }
+        &:hover {
+            box-shadow: 9px 14px 31px -10px #3a3a3a;
+        }
     }
+    #gameSection { 
+        width: 70%;
+        overflow: hidden;
+        padding: 0.5rem;
+
+        // glassmorphism
+        background: rgba(255, 255, 255, 0.24);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+
+        #determinedDice {
+            width: 50%;
+            margin: 0 auto;
+            padding: 20px 50px;
+            display: flex;
+            background-color: $borderColor;
+            box-shadow: 9px 14px 31px -3px #9e9e9e;
+            border-radius: 100px;
+            display: block;
+            h2 {
+                font-size: 1.5rem;
+                color: white;
+                text-align: center;
+            }
+            p {
+                font-size: 1rem;
+                color: rgb(209, 209, 209);
+                text-align: center;
+            }
+            .dices {
+                display: flex;
+                justify-content: space-around;
+                .diceSlot {
+                    color: white;
+                    margin: 0 5px;
+                    font-size: 4rem;
+                    i {
+                        text-shadow: 0px 6px 0px #0f0f0f;
+                        &:hover {
+                            text-shadow: 0px 0px 0px #0f0f0f;
+                            transform: translateY(6px);
+                        }
+                    }
+                    .fa-square {
+                        color: rgb(131, 131, 131);
+                        text-shadow: 0px 0px 0px #0f0f0f;
+                        transform: translateY(6px);
+                    }
+                }
+            }
+        
+        }
+    }
+
+    // viewportWidthが1200px以下の場合はスマホ表示とする
+    // ゲーム画面からゲーム途中にトップ画面に戻りたいとき用のボタンはどこに設置するのが良いか
+    // スマホ表示時の点数表の表示方法をどうするか
 }
