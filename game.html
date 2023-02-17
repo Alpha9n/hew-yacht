@@ -7,6 +7,8 @@
     <title>ヨット | Game</title>
     <link rel="stylesheet" href="css/game.css">
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/gh/snd-lib/snd-lib@v1.1.2/dist/browser/snd.js?kit=01'></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div id="game">
@@ -23,48 +25,48 @@
                             <i class="fa-solid fa-dice-one"></i>
                             エース
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="deuce">
                         <td class="hand">
                             <i class="fa-solid fa-dice-two"></i>
                             デュース
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="tray">
                         <td class="hand">
                             <i class="fa-solid fa-dice-three"></i>
                             トレイ
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="four">
                         <td class="hand">
                             <i class="fa-solid fa-dice-four"></i>
                             フォー
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="five">
                         <td class="hand">
                             <i class="fa-solid fa-dice-five"></i>
                             ファイブ
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="six">
                         <td class="hand">
                             <i class="fa-solid fa-dice-six"></i>
                             シックス
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="bonusResult" class="title">
                         <td class="total hand">
@@ -81,8 +83,8 @@
                             <i class="fa-solid fa-hand-pointer"></i>
                             チョイス
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                 </table>
                 <table>
@@ -91,40 +93,40 @@
                             <i class="fa-solid fa-square"></i>
                             フォーダイス
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="fullHouse">
                         <td class="hand">
                             <i class="fa-solid fa-star"></i>
                             フルハウス
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="smallStraight">
                         <td class="hand">
                             <i class="fa-solid fa-bolt"></i>
                             S.ストレート
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="bigStraight">
                         <td class="hand">
                             <i class="fa-solid fa-v"></i>
                             B.ストレート
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="yacht">
                         <td class="hand">
                             <i class="fa-solid fa-crown"></i>
                             ヨット
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 scoreSlot"></td>
+                        <td class="player2 scoreSlot"></td>
                     </tr>
                     <tr id="totalResult" class="title">
                         <td class="total hand">得点</td>
@@ -137,6 +139,10 @@
                 <h2>ターン</h2>
                 <p><span id="turnNum">1</span>/12</p>
             </div>
+            <!-- 一時的に設置 -->
+            <div class="controls">
+                <a href="index.html">トップに戻る</a>
+            </div>
         </div>
         <div id="gameSection">
             <div id="determinedDice">
@@ -145,7 +151,7 @@
                 <!-- 初期値はfa-square -->
                 <ul class="dices">
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-five"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                     <li class="diceSlot">
                         <i class="fa-solid fa-square"></i>
@@ -162,25 +168,25 @@
                 </ul>
             </div>
             <div id="diceRoll">
-                <div class="button">
+                <div class="button snd__notification">
                     <p>サイコロを振る</p>
                     <i class="fa-solid fa-dice"></i>
                 </div>
                 <ul id="randomDices">
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-one"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-one"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-one"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-one"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                     <li class="diceSlot">
-                        <i class="fa-solid fa-dice-one"></i>
+                        <i class="fa-solid fa-square"></i>
                     </li>
                 </ul>
             </div>

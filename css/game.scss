@@ -1,16 +1,40 @@
-$backGroundColor: rgb(238, 238, 238);
+$backgroundColor: rgb(238, 238, 238);
 $borderColor: rgb(78, 78, 78);
 $tableBorder: 3px solid $borderColor;
+$diceRollBackgroundColor: rgb(109, 109, 109);; 
 
 * {
     margin: 0;
     padding: 0;
     list-style: none;
     transition: all .1s ease-in-out;
+    user-select: none;
+}
+
+.dices {
+    display: flex;
+    justify-content: space-around;
+    .diceSlot {
+        color: white;
+        margin: 0 5px;
+        font-size: 4rem;
+        i {
+            text-shadow: 0px 6px 0px #0f0f0f;
+            &:hover {
+                text-shadow: 0px 0px 0px #0f0f0f;
+                transform: translateY(6px);
+            }
+        }
+        .fa-square {
+            color: rgb(131, 131, 131);
+            text-shadow: 0px 0px 0px #0f0f0f;
+            transform: translateY(6px);
+        }
+    }
 }
 
 #game {
-    background-color: $backGroundColor;
+    background-color: $backgroundColor;
     margin: 2rem auto;
     width: 90vw;
     height: 89vh;
@@ -24,10 +48,10 @@ $tableBorder: 3px solid $borderColor;
     #dataSection {
         display: block;
         width: 30%;
-        overflow: hidden;
+        overflow: scroll;
         padding: 1rem;
         margin: 10px;
-        background-color: $backGroundColor;
+        background-color: $backgroundColor;
         box-shadow: 9px 14px 31px -3px #3a3a3a;
         #scoreBoard {
             table {
@@ -41,6 +65,9 @@ $tableBorder: 3px solid $borderColor;
                         padding: 5px 5px;
                         border: $tableBorder;
                         overflow: hidden;
+                    }
+                    .active {
+                        background-color: rgba(254, 245, 71, 0.551);
                     }
                     .hand {
                         width: 50%;
@@ -68,7 +95,7 @@ $tableBorder: 3px solid $borderColor;
                     background-color: $borderColor;
                     text-align: center;
                     .player1,.player2 {
-                        background-color: $backGroundColor;
+                        background-color: $backgroundColor;
                     }
                 }
             }
@@ -131,13 +158,43 @@ $tableBorder: 3px solid $borderColor;
                 color: rgb(209, 209, 209);
                 text-align: center;
             }
-            .dices {
+        }
+        #diceRoll {
+            width: 80%;
+            display: flex;
+            justify-content: space-around;
+            background-color: #3a3a3a;
+            padding: 2rem;
+            margin: 5rem auto;
+            border-radius: 10px;
+            align-items: center;
+            .button {
+                display: inline-block;
+                padding: 0.5em 1em;
+                vertical-align: middle;
+                height: fit-content;
+                text-decoration: none;
+                text-align: center;
+                background: #324170;/*ボタン色*/
+                color: #FFF;
+                border-bottom: solid 4px #080a10;
+                border-radius: 10px;
+                &:hover {
+                    background: #161d32;
+                }
+                &:active {
+                    transform: translateY(4px);/*下に動く*/
+                    border-bottom: none;/*線を消す*/
+                }
+            }
+            #randomDices {
                 display: flex;
                 justify-content: space-around;
                 .diceSlot {
                     color: white;
                     margin: 0 5px;
-                    font-size: 4rem;
+                    margin-right: 0.5em;
+                    font-size: 5rem;
                     i {
                         text-shadow: 0px 6px 0px #0f0f0f;
                         &:hover {
@@ -152,7 +209,6 @@ $tableBorder: 3px solid $borderColor;
                     }
                 }
             }
-        
         }
     }
 

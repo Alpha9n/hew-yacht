@@ -7,27 +7,33 @@
     <title>ヨット | Top</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <script src='https://cdn.jsdelivr.net/gh/snd-lib/snd-lib@v1.1.2/dist/browser/snd.js?kit=01'></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 </head>
 <body>
     <div class="wrapper">
-        <div id="title">
-            <h1><i class="fa-solid fa-dice"></i> ヨット</h1>
-        </div>
-        <div id="buttons">
-            <ul id="gameMode">
-                <li>
-                    <a href="./game.html" id="practice"><i class="fa-solid fa-leaf"></i> 練習モード</a>
-                </li>
-                <li>
-                    <a href="./host.html" id="host" class="comingsoon"><i class="fa-solid fa-square-plus"></i> ルームを作成</a>
-                </li>
-                <li>
-                    <a href="./join.html" id="join" class="comingsoon"><i class="fa-solid fa-right-to-bracket"></i> ルームに参加</a>
-                </li>
-                <li>
-                    <a href="./settings.html" id="settings" class="comingsoon"><i class="fa-solid fa-gear"></i> 設定</a>
-                </li>
-            </ul>
+        <div class="menu">
+            <a href="index.html">
+                <div id="title">
+                    <h1><i class="fa-solid fa-dice"></i> ヨット</h1>
+                </div>
+            </a>
+            <div id="buttons">
+                <ul id="gameMode">
+                    <li>
+                        <a href="./game.html?mode=local" id="practice" class="snd__button"><i class="fa-solid fa-leaf"></i> 練習モード</a>
+                    </li>
+                    <li>
+                        <a href="./host.html" id="host" class="comingsoon snd__disabled"><i class="fa-solid fa-square-plus"></i> ルームを作成</a>
+                    </li>
+                    <li>
+                        <a href="./join.html" id="join" class="comingsoon snd__disabled"><i class="fa-solid fa-right-to-bracket"></i> ルームに参加</a>
+                    </li>
+                    <li>
+                        <a href="./settings.html" id="settings" class="comingsoon snd__disabled"><i class="fa-solid fa-gear"></i> 設定</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </body>
