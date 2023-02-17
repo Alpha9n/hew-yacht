@@ -19,32 +19,50 @@
                         <td class="playerName2">Player 2</td>
                     </tr>
                     <tr id="ace">
-                        <td class="hand">エース</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-one"></i>
+                            エース
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="deuce">
-                        <td class="hand">デュース</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-two"></i>
+                            デュース
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="tray">
-                        <td class="hand">トレイ</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-three"></i>
+                            トレイ
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="four">
-                        <td class="hand">フォー</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-four"></i>
+                            フォー
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="five">
-                        <td class="hand">ファイブ</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-five"></i>
+                            ファイブ
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="six">
-                        <td class="hand">シックス</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-dice-six"></i>
+                            シックス
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
@@ -59,34 +77,52 @@
                 </table>
                 <table>
                     <tr id="choice">
-                        <td class="hand">チョイス</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-hand-pointer"></i>
+                            チョイス
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                 </table>
                 <table>
                     <tr id="fourDice">
-                        <td class="hand">フォーダイス</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-square"></i>
+                            フォーダイス
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="fullHouse">
-                        <td class="hand">フルハウス</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-star"></i>
+                            フルハウス
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="smallStraight">
-                        <td class="hand">S.ストレート</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-bolt"></i>
+                            S.ストレート
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="bigStraight">
-                        <td class="hand">B.ストレート</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-v"></i>
+                            B.ストレート
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
                     <tr id="yacht">
-                        <td class="hand">ヨット</td>
+                        <td class="hand">
+                            <i class="fa-solid fa-crown"></i>
+                            ヨット
+                        </td>
                         <td class="player1"></td>
                         <td class="player2"></td>
                     </tr>
@@ -107,24 +143,54 @@
                 <h2>手持ちのサイコロ</h2>
                 <p>※クリックでふりなおす</p>
                 <!-- 初期値はfa-square -->
-                <div class="dices">
-                    <div class="dice1 diceSlot">
+                <ul class="dices">
+                    <li class="diceSlot">
                         <i class="fa-solid fa-dice-five"></i>
-                    </div>
-                    <div class="dice2 diceSlot">
-                        <i class="fa-solid fa-dice-five"></i>
-                    </div>
-                    <div class="dice3 diceSlot">
+                    </li>
+                    <li class="diceSlot">
                         <i class="fa-solid fa-square"></i>
-                    </div>
-                    <div class="dice4 diceSlot">
+                    </li>
+                    <li class="diceSlot">
                         <i class="fa-solid fa-square"></i>
-                    </div>
-                    <div class="dice5 diceSlot">
+                    </li>
+                    <li class="diceSlot">
                         <i class="fa-solid fa-square"></i>
-                    </div>
-                </div>
+                    </li>
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-square"></i>
+                    </li>
+                </ul>
             </div>
+            <div id="diceRoll">
+                <div class="button">
+                    <p>サイコロを振る</p>
+                    <i class="fa-solid fa-dice"></i>
+                </div>
+                <ul id="randomDices">
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-dice-one"></i>
+                    </li>
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-dice-one"></i>
+                    </li>
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-dice-one"></i>
+                    </li>
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-dice-one"></i>
+                    </li>
+                    <li class="diceSlot">
+                        <i class="fa-solid fa-dice-one"></i>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="resultScreen">
+        <div id="result">
+            <h2>結果</h2>
+            <!-- ここにテーブルを挿入 -->
+            <button id="returnHome">ホームに戻る</button>
         </div>
     </div>
     <script src="js/game.js"></script>

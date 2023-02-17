@@ -5,6 +5,7 @@ $tableBorder: 3px solid $borderColor;
 * {
     margin: 0;
     padding: 0;
+    list-style: none;
     transition: all .1s ease-in-out;
 }
 
@@ -44,16 +45,21 @@ $tableBorder: 3px solid $borderColor;
                     .hand {
                         width: 50%;
                         font-size: small;
+                        i {
+                            font-size: 1.2rem;
+                            margin: 0 5px;
+                        }
                     }
                     .total {
                         padding: 10px 0;
                     }
-                    .player1 {
+                    .player1,.player2 {
                         width: 25%;
                     }
-                    .player2 { 
-                        width: 25%;
+                    &:hover {
+                        background-color: rgb(156, 156, 156);
                     }
+                    
                 }
                 .title {
                     font-weight: bold;
@@ -153,4 +159,16 @@ $tableBorder: 3px solid $borderColor;
     // viewportWidthが1200px以下の場合はスマホ表示とする
     // ゲーム画面からゲーム途中にトップ画面に戻りたいとき用のボタンはどこに設置するのが良いか
     // スマホ表示時の点数表の表示方法をどうするか
+}
+
+#resultScreen {
+    // jsからゲーム終了時に表示処理を実行
+    display: none;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    text-align: center;
+    margin: 10rem auto;
+    z-index: 5;
 }

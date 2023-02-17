@@ -4,6 +4,7 @@ $glassColor: rgb(221, 221, 221, 0.5);
     margin: 0;
     padding: 0;
     text-decoration: none;
+    list-style: none;
     transition: all .1s ease-in-out;
 }
 
@@ -37,7 +38,6 @@ $glassColor: rgb(221, 221, 221, 0.5);
         margin: 2rem auto;
         width: 40%;
         #gameMode {
-            list-style: none;
             padding: 3rem 0 8rem 0;
             li {
                 margin: 2rem auto;
@@ -51,6 +51,7 @@ $glassColor: rgb(221, 221, 221, 0.5);
                 background-color: rgb(255, 255, 255);
                 padding: 10px 30px;
                 border-radius: 5px;
+                font-size: 1.5rem;
                 box-shadow: 0px 6px 0px #0f0f0f;
                 &:hover {
                     box-shadow: 0px 0px 0px #0f0f0f;
@@ -67,8 +68,5 @@ $glassColor: rgb(221, 221, 221, 0.5);
             }
         }
     }
-
-
-
-    
+    // .comingsoonのみhover時にtransform: translateY(6px);を効かないようにする
 }
