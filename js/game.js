@@ -4,6 +4,7 @@ const GAME_MODE = {
     'ONLINE': 1
 }
 
+
 // サイコロの目の定義
 const DICE_FACE = {
     1: 'fa-dice-one',
@@ -13,6 +14,7 @@ const DICE_FACE = {
     5: 'fa-dice-five',
     6: 'fa-dice-six'
 }
+
 
 // 初期化処理
 function init(gameMode) {
@@ -28,6 +30,9 @@ function init(gameMode) {
     }
 };
 
+
+
+
 function diceRoll() {
     // サイコロを振る処理
     // サイコロの目の表示
@@ -39,6 +44,7 @@ function diceRoll() {
     }
 }
 
+
 // ダイスロールボタンのイベント登録
 $('#diceRoll').find('.button').on('click', diceRoll);
 $(document).keydown((event) => {
@@ -47,47 +53,53 @@ $(document).keydown((event) => {
     }
 });
 
-let usedSlot = 0;
 
-// サイコロの目の保持処理
-$('#diceRoll').find('.diceSlot').on('click', (event) => {
+// サイコロの保持処理
+let usedSlot = 0;
+$('#randomDices').find('.diceSlot').on('click', (event) => {
+    console.log('rollDiceClick!!')
     const diceSlot = $(event.currentTarget);
     const diceSlotAttr = diceSlot.children().attr('class');
-    if (usedSlot >= 5 || diceSlot.children().attr('class') === 'fa-solid fa-square') {
+    if (usedSlot >= 5 || diceSlotAttr === 'fa-solid fa-square') {
         return;
     };
     console.log(diceSlotAttr)
     $('#determinedDice').find('.diceSlot').children().eq(usedSlot).attr('class', diceSlotAttr);
-    usedSlot+=1;
+    usedSlot++;
     diceSlot.remove();
 });
 
+
+// 保持したサイコロの解除処理
 $('#determinedDice').find('.diceSlot').on('click', (event) => {
     const diceSlot = $(event.currentTarget);
     const diceSlotAttr = diceSlot.children().attr('class');
-    if (diceSlot.children().attr('class') === 'fa-solid fa-square') {
+    if (diceSlotAttr === 'fa-solid fa-square') {
         return;
     };
-    $('#diceRoll').find('.diceSlot').children().eq(usedSlot).attr('class', diceSlotAttr);
-    usedSlot-=1;
+    console.log(diceSlotAttr);
+    $('#randomDices').append(`<li class="diceSlot"><i class="${diceSlotAttr}"></i></li>`);
+    usedSlot--;
     diceSlot.children().attr('class', 'fa-solid fa-square');
 });
 
+
 // 役の判定処理
-
 // 表への登録処理
-
 // ターンの切り替え
-
-let turnCount = 1;
+// ターン切り替え時のメッセージ
+// 表のハイライト表示の切り替え
+let turnCount = 0;
 $('.scoreSlot').on('click', (event) => {
-    if (event.currentTarget.textContent === '', event.currentTarget.attr('class') === 'scoreSlot') {
+    let target = $(event.currentTarget);
+    if (target.hasClass('active') && target.text() === '') {
         $('.player1').toggleClass('active');
         $('.player2').toggleClass('active');
+        target.text('100')
         turnCount += 1;
         console.log(turnCount)
-        if (turnCount === 3) {
-            turnCount = 1;
+        if (turnCount === 2) {
+            turnCount = 0;
             const turnNum = $('#turnNum').text();
             if (Number(turnNum) >= 12) {
                 $('#resultScreen').css('display', 'block');
@@ -97,14 +109,20 @@ $('.scoreSlot').on('click', (event) => {
         }
     }
 });
-    // ターン切り替え時のメッセージ
-    // 表のハイライト表示の切り替え
-$('.player1').toggleClass('active');
+
+
+// プレイヤー1に最初のターンを与える
+$('.player1').addClass('active');
+
 
 // ゲームの終了判定
 
+
 // ゲームの終了処理
     // ゲームの終了画面の表示
+
+$('#resultScreen').find('.button').on('click', () => {
+});
 
 
 // 関数の実行
