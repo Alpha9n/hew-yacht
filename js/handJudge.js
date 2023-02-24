@@ -1,9 +1,9 @@
-class handJudge {
+export class handJudge {
     constructor(dices) {
         this.hand = new Array();
     };
 
-    static ace() {
+    ace() {
         return $(`.${DICE_FACE[0]}`).size();
     }
 }

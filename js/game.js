@@ -1,11 +1,21 @@
-// ゲームモードの定義
+/**
+ * @typedef {"hand"|"field"} Slot - サイコロのスロット位置
+ */
+
+import { handJudge as judge } from './handJudge';
+
+/**
+ * ゲームモードの定義
+ */
 const GAME_MODE = {
-    'LOCAL': 0,
-    'ONLINE': 1
+    0: 'LOCAL',
+    1: 'ONLINE'
 }
 
 
-// サイコロの目の定義
+/**
+ * サイコロの目の定義
+ */
 const DICE_FACE = {
     1: 'fa-dice-one',
     2: 'fa-dice-two',
@@ -16,30 +26,55 @@ const DICE_FACE = {
 }
 
 
+/**
+ * サイコロのスロット位置の定義
+ */
+const FIELD_TYPE = {
+    'hand': '#determinedDice',
+    'field': '#randomDices'
+}
+
+
+let hand = []
+let field = []
+
+
 // 初期化処理
-function init(gameMode) {
+const init = (gameMode) => {
+
     if (gameMode === GAME_MODE.LOCAL) {
         console.log('ローカルモードの初期化処理');
-        // ローカルモードの初期化処理
-        $('.diceSlot').each((index, element) => {
-            element = $(element);
-            element.children().remove();
-            element.append('<i class="fa-solid fa-square"></i>');
-        });
+        // サイコロの初期化処理
+        diceInit();
         // 表の初期化処理
     }
 };
 
 
+/**
+ * サイコロを初期化する関数
+ */
+const diceInit = () => {
+    hand = []
+    field = []
+    $('.diceSlot').each((index, element) => {
+        element = $(element);
+        element.children().remove();
+        element.append('<i class="fa-solid fa-square"></i>');
+        hand.push("fa-solid fa-square");
+        field.push("fa-solid fa-square");
+    });
+}
 
 
-function diceRoll() {
-    // サイコロを振る処理
-    // サイコロの目の表示
+/**
+ * サイコロを振る関数
+ */
+const diceRoll = () => {
     for (let i = 0; i < 5; i++) {
         const diceSlot = $('#randomDices').find('.diceSlot').eq(i);
-        diceSlot.children().remove();
         const diceFace = Math.floor(Math.random() * 6) + 1;
+        diceSlot.children().remove();
         diceSlot.append(`<i class="fa-solid ${DICE_FACE[diceFace]}"></i>`);
     }
 }
@@ -54,9 +89,13 @@ $(document).keydown((event) => {
 });
 
 
-// サイコロの保持処理
 let usedSlot = 0;
-$('#randomDices').find('.diceSlot').on('click', (event) => {
+/**
+ * サイコロの保持をする関数
+ * @param {*} event - クリックターゲット
+ * @returns 
+ */
+const registerDice = (event) => {
     console.log('rollDiceClick!!')
     const diceSlot = $(event.currentTarget);
     const diceSlotAttr = diceSlot.children().attr('class');
@@ -67,11 +106,15 @@ $('#randomDices').find('.diceSlot').on('click', (event) => {
     $('#determinedDice').find('.diceSlot').children().eq(usedSlot).attr('class', diceSlotAttr);
     usedSlot++;
     diceSlot.remove();
-});
+}
 
 
-// 保持したサイコロの解除処理
-$('#determinedDice').find('.diceSlot').on('click', (event) => {
+/**
+ * 保持したサイコロの解除をする関数
+ * @param {*} event - クリックターゲット
+ * @returns 
+ */
+const unRegisterDice = (event) => {
     const diceSlot = $(event.currentTarget);
     const diceSlotAttr = diceSlot.children().attr('class');
     if (diceSlotAttr === 'fa-solid fa-square') {
@@ -81,7 +124,44 @@ $('#determinedDice').find('.diceSlot').on('click', (event) => {
     $('#randomDices').append(`<li class="diceSlot"><i class="${diceSlotAttr}"></i></li>`);
     usedSlot--;
     diceSlot.children().attr('class', 'fa-solid fa-square');
-});
+    $('#randomDices').find('.diceSlot').on('click', registerDice);
+}
+
+$('#randomDices').find('.diceSlot').on('click', registerDice);
+$('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
+
+
+/**
+ * サイコロの位置を移動させる関数
+ * @param {Number} diceNum - サイコロの目
+ * @param {Slot} to - 移動先
+ * @param {Slot} from - 移動元
+ * @param {Number} position - 配列の添字
+ */
+const moveDice = (diceNum, from, to, position) => {
+    addDice(diceNum, to);
+    removeDice(diceNum, from, position);
+};
+
+/**
+ * 指定したスロットにサイコロを追加する関数
+ * @param {Number} diceNum - サイコロの目
+ * @param {Slot} to - 追加先のスロット
+ */
+const addDice = (diceNum, to) => {
+    
+};
+
+/**
+ * 指定したスロットのサイコロを削除する関数
+ * @param {Number} diceNum - サイコロの目
+ * @param {Slot} from - 削除元のスロット
+ * @param {Number} position - 配列の添字
+ */
+const removeDice = (diceNum, from, position) => {
+    obj[from][position]
+};
+
 
 
 // 役の判定処理
@@ -98,6 +178,7 @@ $('.scoreSlot').on('click', (event) => {
         target.text('100')
         turnCount += 1;
         console.log(turnCount)
+        diceInit();
         if (turnCount === 2) {
             turnCount = 0;
             const turnNum = $('#turnNum').text();
