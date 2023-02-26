@@ -1,22 +1,20 @@
 /**
  * @typedef {"hand"|"field"} Slot - サイコロのスロット位置
+ * @typedef {"local"|"online"} GameMode - ゲームモード
  */
 
-import { handJudge as judge } from './handJudge';
+import { handJudge as judge } from './handJudge.js';
 
-/**
- * ゲームモードの定義
- */
-const GAME_MODE = {
-    0: 'LOCAL',
-    1: 'ONLINE'
-}
-
+document.addEventListener('click', () => {
+    console.log(hand)
+    console.log(field)
+});
 
 /**
  * サイコロの目の定義
  */
 const DICE_FACE = {
+    0: 'fa-square',
     1: 'fa-dice-one',
     2: 'fa-dice-two',
     3: 'fa-dice-three',
@@ -34,49 +32,85 @@ const FIELD_TYPE = {
     'field': '#randomDices'
 }
 
+const DEFAULTDICE = [0, 0, 0, 0, 0];
 
-let hand = []
-let field = []
+/** @type {Number[]} - DICE_FACE内の数値を格納 */
+let hand = [];
+/** @type {Number[]} - DICE_FACE内の数値を格納 */
+let field = [];
 
 
-// 初期化処理
+/**
+ * fieldTypeで指定したdiceListを取得する。
+ * @param {Slot} fieldType 
+ * @return {Number[]}
+ */
+const getDiceList = (fieldType) => {
+    if(fieldType === 'hand') {
+        return hand;
+    }else if (fieldType === 'field') {
+        return field;
+    }
+    return null;
+}
+
+
+/**
+ * 
+ * @param {GameMode} gameMode 
+ */
 const init = (gameMode) => {
 
-    if (gameMode === GAME_MODE.LOCAL) {
+    if (gameMode == "local") {
         console.log('ローカルモードの初期化処理');
         // サイコロの初期化処理
-        diceInit();
+        hand = DEFAULTDICE;
+        field = DEFAULTDICE;
+        diceApply();
         // 表の初期化処理
+        return true;
+    } else if (gameMode == "online") {
+        return true;
     }
+    return false;
 };
 
 
 /**
- * サイコロを初期化する関数
+ * 配列の内容をHTML要素に反映させる関数
  */
-const diceInit = () => {
-    hand = []
-    field = []
-    $('.diceSlot').each((index, element) => {
-        element = $(element);
+const diceApply = () => {
+    hand.forEach((elem, index) => {
+        console.log(`HAND - index : ${index} elem : ${elem}`);
+        let element = $('#determinedDice').find('.diceSlot').eq(index);
+        let diceElem = DICE_FACE[elem]
         element.children().remove();
-        element.append('<i class="fa-solid fa-square"></i>');
-        hand.push("fa-solid fa-square");
-        field.push("fa-solid fa-square");
+        element.append(`<i class="fa-solid ${diceElem}"></i>`);
     });
+    field.forEach((elem, index) => {
+        console.log(`FIELD - index : ${index} elem : ${elem}`);
+        let element = $('#randomDices').find('.diceSlot').eq(index)
+        let diceElem = DICE_FACE[elem]
+        element.children().remove();
+        element.append(`<i class="fa-solid ${diceElem}"></i>`);
+    });
+    console.log("-------------------------")
+    
+    $('#randomDices').find('.diceSlot').on('click', registerDice);
+    $('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
 }
-
 
 /**
  * サイコロを振る関数
  */
 const diceRoll = () => {
+    field = DEFAULTDICE;
+    console.log(field);
     for (let i = 0; i < 5; i++) {
-        const diceSlot = $('#randomDices').find('.diceSlot').eq(i);
         const diceFace = Math.floor(Math.random() * 6) + 1;
-        diceSlot.children().remove();
-        diceSlot.append(`<i class="fa-solid ${DICE_FACE[diceFace]}"></i>`);
+        addDice(diceFace, field);
     }
+    diceApply();
 }
 
 
@@ -92,20 +126,11 @@ $(document).keydown((event) => {
 let usedSlot = 0;
 /**
  * サイコロの保持をする関数
- * @param {*} event - クリックターゲット
- * @returns 
  */
 const registerDice = (event) => {
     console.log('rollDiceClick!!')
-    const diceSlot = $(event.currentTarget);
-    const diceSlotAttr = diceSlot.children().attr('class');
-    if (usedSlot >= 5 || diceSlotAttr === 'fa-solid fa-square') {
-        return;
-    };
-    console.log(diceSlotAttr)
-    $('#determinedDice').find('.diceSlot').children().eq(usedSlot).attr('class', diceSlotAttr);
-    usedSlot++;
-    diceSlot.remove();
+    let index = $(event.currentTarget).index()
+    moveDice("field", "hand", index);
 }
 
 
@@ -115,20 +140,9 @@ const registerDice = (event) => {
  * @returns 
  */
 const unRegisterDice = (event) => {
-    const diceSlot = $(event.currentTarget);
-    const diceSlotAttr = diceSlot.children().attr('class');
-    if (diceSlotAttr === 'fa-solid fa-square') {
-        return;
-    };
-    console.log(diceSlotAttr);
-    $('#randomDices').append(`<li class="diceSlot"><i class="${diceSlotAttr}"></i></li>`);
-    usedSlot--;
-    diceSlot.children().attr('class', 'fa-solid fa-square');
-    $('#randomDices').find('.diceSlot').on('click', registerDice);
+    let index = $(event.currentTarget).index()
+    moveDice("hand", "field", index);
 }
-
-$('#randomDices').find('.diceSlot').on('click', registerDice);
-$('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
 
 
 /**
@@ -136,33 +150,59 @@ $('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
  * @param {Number} diceNum - サイコロの目
  * @param {Slot} to - 移動先
  * @param {Slot} from - 移動元
- * @param {Number} position - 配列の添字
+ * @param {Number} position - 移動元配列の添字
  */
-const moveDice = (diceNum, from, to, position) => {
-    addDice(diceNum, to);
-    removeDice(diceNum, from, position);
+const moveDice = (from, to, position) => {
+    let fromArray = getDiceList(from);
+    let toArray = getDiceList(to);
+    let diceNum = fromArray[position];
+    if (diceNum === void 0) {
+        console.log('its undefined');
+        return;
+    }
+    removeDice(fromArray, position);
+    addDice(diceNum, toArray);
 };
 
 /**
  * 指定したスロットにサイコロを追加する関数
- * @param {Number} diceNum - サイコロの目
- * @param {Slot} to - 追加先のスロット
+ * @param {Number} value - サイコロの目
+ * @param {Number[]} arr - 追加先のスロット
  */
-const addDice = (diceNum, to) => {
-    
-};
+const addDice = (value, arr) => {
+    console.log(arr);
+    const index = getFirstZero(arr); // 最初の0の添字を取得
+    if (index !== -1) { // 0が見つかった場合
+      arr[index] = value; // 0を指定された値に置き換える
+    }
+    return arr;
+}
 
 /**
  * 指定したスロットのサイコロを削除する関数
- * @param {Number} diceNum - サイコロの目
- * @param {Slot} from - 削除元のスロット
+ * @param {Number[]} arr - 削除元のスロット
  * @param {Number} position - 配列の添字
  */
-const removeDice = (diceNum, from, position) => {
-    obj[from][position]
-};
+const removeDice = (arr, index) => {
+    if (index >= 0 && index < arr.length) {
+      arr[index] = 0;
+    }
+    return arr;
+}
 
-
+/**
+ * ゼロで初期化されている配列の最初の未使用の値の添字を返します
+ * @param {Array} arr - 配列
+ * @returns {Number} - 添字
+ */
+const getFirstZero = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+      if (arr[i] === 0) {
+        return i;
+      }
+    }
+    return -1; // 配列に0が含まれていない場合は-1を返す
+}
 
 // 役の判定処理
 // 表への登録処理
@@ -209,10 +249,6 @@ $('#resultScreen').find('.button').on('click', () => {
 // 関数の実行
 onload = () => {
     const url = new URL(location.href);
-    const gameMode = url.searchParams.get('mode');
-    if (gameMode === 'online') {
-        init(GAME_MODE.ONLINE);
-    } else {
-        init(GAME_MODE.LOCAL);
-    }
+    const urlQuery = url.searchParams.get('mode');
+    init(urlQuery)
 }
