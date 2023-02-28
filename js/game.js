@@ -3,11 +3,12 @@
  * @typedef {"local"|"online"} GameMode - ゲームモード
  */
 
-import { handJudge as judge } from './handJudge.js';
+import { handJudge } from './handJudge.js';
 
 document.addEventListener('click', () => {
-    console.log(hand)
-    console.log(field)
+    console.log("-------------------------")
+    console.log(`hand - ${hand}`)
+    console.log(`field - ${field}`)
 });
 
 /**
@@ -32,12 +33,29 @@ const FIELD_TYPE = {
     'field': '#randomDices'
 }
 
-const DEFAULTDICE = [0, 0, 0, 0, 0];
-
 /** @type {Number[]} - DICE_FACE内の数値を格納 */
 let hand = [];
 /** @type {Number[]} - DICE_FACE内の数値を格納 */
 let field = [];
+/** @type {Boolean} - ダイスロールが初回かどうか */
+let isFirstRoll = true;
+
+const temp = 'tempSlot';
+
+let handPoints = [
+    {name: 'ace', p1: 0, p2: 0},
+    {name: 'deuce', p1: 0, p2: 0},
+    {name: 'tray', p1: 0, p2: 0},
+    {name: 'four', p1: 0, p2: 0},
+    {name: 'five', p1: 0, p2: 0},
+    {name: 'six', p1: 0, p2: 0},
+    {name: 'choice', p1: 0, p2: 0},
+    {name: 'fourDice', p1: 0, p2: 0},
+    {name: 'fullHouse', p1: 0, p2: 0},
+    {name: 'smallStright', p1: 0, p2: 0},
+    {name: 'bigStraight', p1: 0, p2: 0},
+    {name: 'yacht', p1: 0, p2: 0}
+]
 
 
 /**
@@ -64,8 +82,8 @@ const init = (gameMode) => {
     if (gameMode == "local") {
         console.log('ローカルモードの初期化処理');
         // サイコロの初期化処理
-        hand = DEFAULTDICE;
-        field = DEFAULTDICE;
+        hand = [0, 0, 0, 0, 0];
+        field = [0, 0, 0, 0, 0];
         diceApply();
         // 表の初期化処理
         return true;
@@ -81,36 +99,70 @@ const init = (gameMode) => {
  */
 const diceApply = () => {
     hand.forEach((elem, index) => {
-        console.log(`HAND - index : ${index} elem : ${elem}`);
         let element = $('#determinedDice').find('.diceSlot').eq(index);
-        let diceElem = DICE_FACE[elem]
+        let diceElem = DICE_FACE[elem];
         element.children().remove();
         element.append(`<i class="fa-solid ${diceElem}"></i>`);
     });
     field.forEach((elem, index) => {
-        console.log(`FIELD - index : ${index} elem : ${elem}`);
-        let element = $('#randomDices').find('.diceSlot').eq(index)
-        let diceElem = DICE_FACE[elem]
+        let element = $('#randomDices').find('.diceSlot').eq(index);
+        let diceElem = DICE_FACE[elem];
         element.children().remove();
         element.append(`<i class="fa-solid ${diceElem}"></i>`);
     });
-    console.log("-------------------------")
+    console.log("-------------------------");
+    console.log(`hand - ${hand}`);
+    console.log(`field - ${field}`);
+
+    $('.diceSlot').off('click');
     
     $('#randomDices').find('.diceSlot').on('click', registerDice);
     $('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
+}
+
+const turnSkip = () => {
+    hand = [0, 0, 0, 0, 0];
+    field = [0, 0, 0, 0, 0];
+    isFirstRoll = true;
+    diceApply();
 }
 
 /**
  * サイコロを振る関数
  */
 const diceRoll = () => {
-    field = DEFAULTDICE;
-    console.log(field);
     for (let i = 0; i < 5; i++) {
         const diceFace = Math.floor(Math.random() * 6) + 1;
+        if (!isFirstRoll && field[i] === 0) {
+            continue;
+        }
+        removeDice(field, i);
         addDice(diceFace, field);
     }
     diceApply();
+    setTempPointToTable();
+    isFirstRoll = false;
+}
+
+const getTempPoints = () => {
+    let tempList = hand.concat(field).filter((elem) => {
+        return elem !== 0;
+    });
+    let tempPoints = new handJudge(tempList).getAllHand();
+    return tempPoints;
+}
+
+const setTempPointToTable = () => {
+    let tempPoints = getTempPoints();
+    let activeSlots = $('.active');
+    for (let key in tempPoints) {
+        console.log(`#${key}`)
+        let slot = $(`#${key}`).find('.active');
+        if (slot.text() === '' || slot.hasClass(temp)) {
+            slot.addClass(temp);
+            slot.text(Number(tempPoints[key]));
+        }
+    }
 }
 
 
@@ -128,8 +180,8 @@ let usedSlot = 0;
  * サイコロの保持をする関数
  */
 const registerDice = (event) => {
-    console.log('rollDiceClick!!')
-    let index = $(event.currentTarget).index()
+    console.log('registerDice');
+    let index = $(event.currentTarget).index();
     moveDice("field", "hand", index);
 }
 
@@ -140,7 +192,7 @@ const registerDice = (event) => {
  * @returns 
  */
 const unRegisterDice = (event) => {
-    let index = $(event.currentTarget).index()
+    let index = $(event.currentTarget).index();
     moveDice("hand", "field", index);
 }
 
@@ -162,6 +214,7 @@ const moveDice = (from, to, position) => {
     }
     removeDice(fromArray, position);
     addDice(diceNum, toArray);
+    diceApply();
 };
 
 /**
@@ -170,7 +223,6 @@ const moveDice = (from, to, position) => {
  * @param {Number[]} arr - 追加先のスロット
  */
 const addDice = (value, arr) => {
-    console.log(arr);
     const index = getFirstZero(arr); // 最初の0の添字を取得
     if (index !== -1) { // 0が見つかった場合
       arr[index] = value; // 0を指定された値に置き換える
@@ -204,29 +256,79 @@ const getFirstZero = (arr) => {
     return -1; // 配列に0が含まれていない場合は-1を返す
 }
 
-// 役の判定処理
-// 表への登録処理
-// ターンの切り替え
+
 // ターン切り替え時のメッセージ
-// 表のハイライト表示の切り替え
+
 let turnCount = 0;
+let turnNum = 1;
+
+const turnNumApply = () => {
+    $('#turnNum').text(turnNum);
+}
+
+/**
+ * 
+ * @param {handJudge} judge 
+ * @param {String} handType 
+ */
+const getHandPoint = (judge, handType) => {
+    switch (handType) {
+        case 'ace':
+            return judge.ace();
+        case 'deuce':
+            return judge.deuce();
+        case 'tray':
+            return judge.tray();
+        case 'four':
+            return judge.four();
+        case 'five':
+            return judge.five();
+        case 'six':
+            return judge.six();
+        case 'choice':
+            return judge.choice();
+        case 'fullHouse':
+            return judge.fullHouse();
+        case 'smallStraight':
+            return judge.smallStraight();
+        case 'bigStraight':
+            return judge.bigStraight();
+        case 'yacht':
+            return judge.yacht();
+        default:
+            return 0;
+    }
+}
+
 $('.scoreSlot').on('click', (event) => {
     let target = $(event.currentTarget);
-    if (target.hasClass('active') && target.text() === '') {
-        $('.player1').toggleClass('active');
-        $('.player2').toggleClass('active');
-        target.text('100')
-        turnCount += 1;
-        console.log(turnCount)
-        diceInit();
-        if (turnCount === 2) {
-            turnCount = 0;
-            const turnNum = $('#turnNum').text();
-            if (Number(turnNum) >= 12) {
-                $('#resultScreen').css('display', 'block');
-                return
-            } 
-            $('#turnNum').text(Number(turnNum) + 1);
+    // ターンの切り替え
+    if (target.hasClass('active')) {
+        if (target.text() === '' || target.hasClass(temp)) {
+            field.forEach((value, index) => {
+                if(value === 0) return;
+                moveDice('field', 'hand', index);
+            })
+            target.removeClass(temp);
+            $(`.${temp}`).each((index, elem) => {
+                console.log('hoge1')
+                $(elem).text('');
+                $(elem).removeClass(temp);
+            });
+            $('.player1').toggleClass('active');
+            $('.player2').toggleClass('active');
+            turnCount += 1;
+            console.log(turnCount);
+            turnSkip();
+            if (turnCount === 2) {
+                turnCount = 0;
+                if (Number(turnNum) >= 12) {
+                    $('#resultScreen').css('display', 'block');
+                    return
+                } 
+                turnNum++;
+                turnNumApply();
+            }
         }
     }
 });

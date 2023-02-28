@@ -135,10 +135,6 @@
                     </tr>
                 </table>
             </div>
-            <div id="turnData">
-                <h2>ターン</h2>
-                <p><span id="turnNum">1</span>/12</p>
-            </div>
             <!-- 一時的に設置 -->
             <div class="controls">
                 <a href="index.html">トップに戻る</a>
@@ -168,10 +164,6 @@
                 </ul>
             </div>
             <div id="diceRoll">
-                <div class="button snd__notification">
-                    <p>サイコロを振る</p>
-                    <i class="fa-solid fa-dice"></i>
-                </div>
                 <ul id="randomDices">
                     <li class="diceSlot">
                         <i class="fa-solid fa-dice-one"></i>
@@ -189,6 +181,19 @@
                         <i class="fa-solid fa-square"></i>
                     </li>
                 </ul>
+                <div class="button snd__notification">
+                    <p>サイコロを振る</p>
+                    <i class="fa-solid fa-dice"></i>
+                </div>
+            </div>
+            <div id="turnData">
+                <div class="leftContent">
+                    <h2>ターン</h2>
+                    <p><span id="turnNum">1</span>/12</p>
+                </div>
+                <div class="rightContent">
+                    <p>Player<span id="playerTurn">1</span>の<br>ターン</p>
+                </div>
             </div>
         </div>
     </div>

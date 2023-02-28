@@ -75,7 +75,7 @@ $diceRollBackgroundColor: rgb(109, 109, 109);;
                         font-size: small;
                         i {
                             font-size: 1.2rem;
-                            margin: 0 5px;
+                            margin: 5px 5px;
                         }
                     }
                     .total {
@@ -99,29 +99,6 @@ $diceRollBackgroundColor: rgb(109, 109, 109);;
                         background-color: $backgroundColor;
                     }
                 }
-            }
-        }
-        #turnData {
-            width: 70%;
-            border: 1px solid;
-            margin: 30px auto;
-            padding: 5px;
-            border-radius: 10px;
-            background-color: $borderColor;
-            * {
-                text-align: center;
-                font-size: 2rem;
-                color: white;
-            }
-            p {
-                font-size: 3em;
-                font-weight: lighter;
-                color: rgb(199, 199, 199);
-            }
-            #turnNum {
-                font-size: 1.5em;
-                font-weight: lighter;
-                margin: 2px;
             }
         }
         &:hover {
@@ -212,11 +189,51 @@ $diceRollBackgroundColor: rgb(109, 109, 109);;
                 }
             }
         }
+        #turnData {
+            width: 70%;
+            border: 1px solid;
+            margin: 30px auto;
+            padding: 5px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            background-color: $borderColor;
+            align-items: center;
+            * {
+                text-align: center;
+                font-size: 1.5rem;
+                color: white;
+            }
+            .leftContent {
+                p {
+                    font-size: 3em;
+                    font-weight: lighter;
+                    color: rgb(199, 199, 199);
+                }
+                #turnNum {
+                    font-size: 1.5em;
+                    font-weight: lighter;
+                    margin: 2px;
+                }
+            }
+            .rightContent {
+                p {
+                    font-size: 2rem;
+                }
+                span {
+                    font-size: 2.5rem;
+                }
+            }
+        }
     }
 
     // viewportWidthが1200px以下の場合はスマホ表示とする
     // ゲーム画面からゲーム途中にトップ画面に戻りたいとき用のボタンはどこに設置するのが良いか
     // スマホ表示時の点数表の表示方法をどうするか
+}
+
+.tempSlot {
+    color: #b4b4b4;
 }
 
 #resultScreen {

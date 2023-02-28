@@ -77,7 +77,7 @@
 }
 #game #dataSection #scoreBoard table tr .hand i {
   font-size: 1.2rem;
-  margin: 0 5px;
+  margin: 5px 5px;
 }
 #game #dataSection #scoreBoard table tr .total {
   padding: 10px 0;
@@ -97,29 +97,6 @@
 }
 #game #dataSection #scoreBoard table .title .player1, #game #dataSection #scoreBoard table .title .player2 {
   background-color: rgb(238, 238, 238);
-}
-#game #dataSection #turnData {
-  width: 70%;
-  border: 1px solid;
-  margin: 30px auto;
-  padding: 5px;
-  border-radius: 10px;
-  background-color: rgb(78, 78, 78);
-}
-#game #dataSection #turnData * {
-  text-align: center;
-  font-size: 2rem;
-  color: white;
-}
-#game #dataSection #turnData p {
-  font-size: 3em;
-  font-weight: lighter;
-  color: rgb(199, 199, 199);
-}
-#game #dataSection #turnData #turnNum {
-  font-size: 1.5em;
-  font-weight: lighter;
-  margin: 2px;
 }
 #game #dataSection:hover {
   box-shadow: 9px 14px 31px -10px #3a3a3a;
@@ -207,6 +184,42 @@
   color: rgb(131, 131, 131);
   text-shadow: 0px 0px 0px #0f0f0f;
   transform: translateY(6px);
+}
+#game #gameSection #turnData {
+  width: 70%;
+  border: 1px solid;
+  margin: 30px auto;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(78, 78, 78);
+  align-items: center;
+}
+#game #gameSection #turnData * {
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+}
+#game #gameSection #turnData .leftContent p {
+  font-size: 3em;
+  font-weight: lighter;
+  color: rgb(199, 199, 199);
+}
+#game #gameSection #turnData .leftContent #turnNum {
+  font-size: 1.5em;
+  font-weight: lighter;
+  margin: 2px;
+}
+#game #gameSection #turnData .rightContent p {
+  font-size: 2rem;
+}
+#game #gameSection #turnData .rightContent span {
+  font-size: 2.5rem;
+}
+
+.tempSlot {
+  color: #b4b4b4;
 }
 
 #resultScreen {
