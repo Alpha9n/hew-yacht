@@ -7,77 +7,78 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  font-family: "M PLUS 1p", sans-serif;
 }
 
 .wrapper {
-  margin: 2rem auto;
-  width: 90vw;
-  border-radius: 10px;
-  padding: 2rem;
+  height: 100vh;
+  width: 100vw;
   background-color: rgb(204, 204, 204);
   background-image: url(../images/dice.jpg);
   background-size: cover;
+  background-position-y: bottom;
   background-repeat: no-repeat;
+  overflow: hidden;
 }
-.wrapper .menu {
-  padding: 2rem 0;
-  margin: 0 auto;
-  width: 70%;
-  background: rgba(255, 255, 255, 0.24);
-  border-radius: 10px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+.wrapper .filter {
+  background-color: rgba(99, 99, 99, 0.1921568627);
   -webkit-backdrop-filter: blur(5px);
           backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  height: 100%;
 }
-.wrapper #title {
-  background: rgba(255, 255, 255, 0.22);
-  border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  -webkit-backdrop-filter: blur(5px);
-          backdrop-filter: blur(5px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  color: #0f0f0f;
-  width: -moz-fit-content;
-  width: fit-content;
-  padding: 1rem 10rem;
-  margin: 0 auto;
-  -webkit-backdrop-filter: blur(10px);
-          backdrop-filter: blur(10px);
-  text-align: center;
+.wrapper .filter .menu {
+  height: calc(100% - 10rem);
+  padding: 5rem 8rem;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper .filter .menu h1 {
+  font-weight: 900;
+  font-size: 5rem;
+  color: aliceblue;
+}
+.wrapper .filter .menu .gameMode {
+  margin-top: auto;
+}
+.wrapper .filter .menu .gameMode li {
+  font-weight: 800;
   font-size: 2rem;
+  margin-top: 0.8em;
 }
-.wrapper #buttons {
-  margin: 2rem auto;
-  width: 40%;
+.wrapper .filter .menu .gameMode li .button {
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  transition: 0.3s;
+  padding: 0.2em 2em;
 }
-.wrapper #buttons #gameMode {
-  padding: 3rem 0 8rem 0;
-}
-.wrapper #buttons #gameMode li {
-  margin: 2rem auto;
-  width: -moz-fit-content;
-  width: fit-content;
-}
-.wrapper #buttons #gameMode li:hover {
-  transform: translateY(6px);
-}
-.wrapper #buttons #gameMode a {
-  color: rgb(33, 33, 33);
-  background-color: rgb(255, 255, 255);
-  padding: 10px 30px;
+.wrapper .filter .menu .gameMode li .button:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  background: #D9D9D9;
+  width: 2%;
+  height: 100%;
+  transition: 0.3s;
+  z-index: -1;
   border-radius: 5px;
-  font-size: 1.5rem;
-  box-shadow: 0px 6px 0px #0f0f0f;
 }
-.wrapper #buttons #gameMode a:hover {
-  box-shadow: 0px 0px 0px #0f0f0f;
+.wrapper .filter .menu .gameMode li .button:hover {
+  color: #393939;
 }
-.wrapper #buttons #gameMode .comingsoon {
-  color: #747474;
-  background-color: #9b9b9b;
+.wrapper .filter .menu .gameMode li .button:hover:after {
+  width: 100%;
+}
+.wrapper .filter .menu .gameMode li .comingsoon {
+  position: relative;
   text-decoration: line-through;
   pointer-events: none;
-  box-shadow: 0px 0px 0px #0f0f0f;
-  transform: translateY(6px);
+  color: #8a8a8a;
+  transition: 0.3s;
+  padding: 0.2em 2em;
+}
+.wrapper .filter .menu .gameMode li .comingsoon:after {
+  background: #8a8a8a;
 }/*# sourceMappingURL=index.css.map */

@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ヨット | Game</title>
     <link rel="stylesheet" href="css/game.css">
+    <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <script src='https://cdn.jsdelivr.net/gh/snd-lib/snd-lib@v1.1.2/dist/browser/snd.js?kit=01'></script>
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
@@ -13,8 +14,9 @@
 <body>
     <div id="game">
         <div id="dataSection">
+            <h2>得点表</h2>
             <div id="scoreBoard">
-                <table>
+                <table id="simpleHand">
                     <tr class="title">
                         <td class="hand">役名</td>
                         <td class="playerName1">Player 1</td>
@@ -87,7 +89,7 @@
                         <td class="player2 scoreSlot"></td>
                     </tr>
                 </table>
-                <table>
+                <table id="specialHand">
                     <tr id="fourDice">
                         <td class="hand">
                             <i class="fa-solid fa-square"></i>
@@ -130,8 +132,8 @@
                     </tr>
                     <tr id="totalResult" class="title">
                         <td class="total hand">得点</td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 totalScore"></td>
+                        <td class="player2 totalScore"></td>
                     </tr>
                 </table>
             </div>
@@ -181,18 +183,21 @@
                         <i class="fa-solid fa-square"></i>
                     </li>
                 </ul>
-                <div class="button snd__notification">
-                    <p>サイコロを振る</p>
+                <div class="rollButton snd__button">
                     <i class="fa-solid fa-dice"></i>
+                    <p>
+                        サイコロを振る <br>
+                        <span class="rollCount">あと<span class="rollCountData">N</span>回</span>
+                    </p>
                 </div>
             </div>
             <div id="turnData">
                 <div class="leftContent">
-                    <h2>ターン</h2>
+                    <h2>ラウンド</h2>
                     <p><span id="turnNum">1</span>/12</p>
                 </div>
                 <div class="rightContent">
-                    <p>Player<span id="playerTurn">1</span>の<br>ターン</p>
+                    <p>Player<span id="playerTurn">N</span>の<br>ターン</p>
                 </div>
             </div>
         </div>

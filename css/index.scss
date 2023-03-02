@@ -8,78 +8,80 @@ $backgroundColor: rgb(204, 204, 204);
     list-style: none;
     transition: all .1s ease-in-out;
     user-select: none;
+    font-family: 'M PLUS 1p', sans-serif;
 }
 
 
 .wrapper {
-    margin: 2rem auto;
-    width: 90vw;
-    border-radius: 10px;
-    padding: 2rem;
+    height: 100vh;
+    width: 100vw;
     background-color: $backgroundColor;
     background-image: url(../images/dice.jpg);
     background-size: cover;
+    background-position-y:bottom;
     background-repeat: no-repeat;
-    .menu {
-        padding: 2rem 0;
-        margin: 0 auto;
-        width: 70%;
-        background: rgba(255, 255, 255, 0.24);
-        border-radius: 10px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    .filter {
+        background-color: #63636331;
         backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-    #title {
-        // glass effect
-        background: rgba(255, 255, 255, 0.22);
-        border-radius: 16px;
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        color: #0f0f0f;
-        width: fit-content;
-        padding: 1rem 10rem;
-        margin: 0 auto;
-        backdrop-filter: blur(10px);
-        text-align: center;
-        font-size: 2rem;
-    }
-
-    #buttons {
-
-        margin: 2rem auto;
-        width: 40%;
-        #gameMode {
-            padding: 3rem 0 8rem 0;
-            li {
-                margin: 2rem auto;
-                width: fit-content;
-                &:hover {
-                    transform: translateY(6px);
-                }
+        width: 100%;
+        height: 100%;
+        .menu {
+            height: calc(100% - 10rem);
+            padding: 5rem 8rem;
+            display: flex;
+            flex-direction: column;
+            h1 {
+                font-weight: 900;
+                font-size: 5rem;
+                color: aliceblue;
             }
-            a {
-                color: rgb(33, 33, 33);
-                background-color: rgb(255, 255, 255);
-                padding: 10px 30px;
-                border-radius: 5px;
-                font-size: 1.5rem;
-                box-shadow: 0px 6px 0px #0f0f0f;
-                &:hover {
-                    box-shadow: 0px 0px 0px #0f0f0f;
+            .gameMode {
+                margin-top: auto;
+                li {
+                    font-weight: 800;
+                    font-size: 2rem;
+                    margin-top: 0.8em;
+                    .button{
+                        position: relative; 
+                        text-decoration: none;
+                        color: #ffffff;
+                        transition: .3s;
+                        padding: .2em 2em;
+                        &:after{
+                            position: absolute;
+                            left: 0;
+                            top: 0;
+                            content: "";
+                            background: #D9D9D9;
+                            width: 2%; 
+                            height: 100%;
+                            transition: .3s;
+                            z-index: -1; 
+                            border-radius: 5px;
+                        }
+                        &:hover{
+                            color: #393939;
+                            &:after{
+                                width: 100%; 
+                            }
+                        }
+                    }
+                    .comingsoon {
+                        position: relative; 
+                        text-decoration: line-through;
+                        pointer-events: none;
+                        color: #8a8a8a;
+                        transition: .3s;
+                        padding: .2em 2em;
+                        &:after {
+                            background: #8a8a8a;
+                        }
+                    }
                 }
-                
-            }
-            .comingsoon {
-                color: #747474;
-                background-color: #9b9b9b;
-                text-decoration: line-through;
-                pointer-events: none;
-                box-shadow: 0px 0px 0px #0f0f0f;
-                transform: translateY(6px);
             }
         }
     }
+
     // .comingsoonのみhover時にtransform: translateY(6px);を効かないようにする
 }

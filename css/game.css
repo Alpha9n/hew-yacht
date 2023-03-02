@@ -7,6 +7,7 @@
   -webkit-user-select: none;
      -moz-user-select: none;
           user-select: none;
+  font-family: "M PLUS 1p", sans-serif;
 }
 
 .dices {
@@ -53,6 +54,11 @@
   background-color: rgb(238, 238, 238);
   box-shadow: 9px 14px 31px -3px #3a3a3a;
 }
+#game #dataSection h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(78, 78, 78);
+}
 #game #dataSection #scoreBoard table {
   margin: 5px;
   width: 90%;
@@ -87,6 +93,12 @@
 }
 #game #dataSection #scoreBoard table tr:hover {
   background-color: rgb(156, 156, 156);
+}
+#game #dataSection #scoreBoard table tr .tempSlot {
+  color: #b4b4b4;
+}
+#game #dataSection #scoreBoard table tr .totalScore {
+  color: #0f0f0f;
 }
 #game #dataSection #scoreBoard table .title {
   font-weight: bold;
@@ -142,10 +154,9 @@
   border-radius: 10px;
   align-items: center;
 }
-#game #gameSection #diceRoll .button {
-  display: inline-block;
+#game #gameSection #diceRoll .rollButton {
+  display: table;
   padding: 0.5em 1em;
-  vertical-align: middle;
   height: -moz-fit-content;
   height: fit-content;
   text-decoration: none;
@@ -156,12 +167,22 @@
   border-radius: 10px;
   cursor: pointer;
 }
-#game #gameSection #diceRoll .button:hover {
+#game #gameSection #diceRoll .rollButton .rollCount {
+  color: #c7c7c7;
+}
+#game #gameSection #diceRoll .rollButton:hover {
   background: #161d32;
 }
-#game #gameSection #diceRoll .button:active {
+#game #gameSection #diceRoll .rollButton:active {
   transform: translateY(4px); /*下に動く*/
   border-bottom: none; /*線を消す*/
+}
+#game #gameSection #diceRoll .rollButton i {
+  display: table-cell;
+  height: -moz-fit-content;
+  height: fit-content;
+  vertical-align: middle;
+  font-size: 1.5rem;
 }
 #game #gameSection #diceRoll #randomDices {
   display: flex;
@@ -189,7 +210,7 @@
   width: 70%;
   border: 1px solid;
   margin: 30px auto;
-  padding: 5px;
+  padding: 2rem;
   border-radius: 10px;
   display: flex;
   justify-content: space-around;
@@ -200,26 +221,24 @@
   text-align: center;
   font-size: 1.5rem;
   color: white;
+  font-weight: 500;
 }
 #game #gameSection #turnData .leftContent p {
   font-size: 3em;
-  font-weight: lighter;
+  font-weight: 100;
   color: rgb(199, 199, 199);
 }
-#game #gameSection #turnData .leftContent #turnNum {
+#game #gameSection #turnData .leftContent span {
+  font-weight: 400;
   font-size: 1.5em;
-  font-weight: lighter;
   margin: 2px;
 }
 #game #gameSection #turnData .rightContent p {
   font-size: 2rem;
 }
 #game #gameSection #turnData .rightContent span {
+  font-weight: 400;
   font-size: 2.5rem;
-}
-
-.tempSlot {
-  color: #b4b4b4;
 }
 
 #resultScreen {
@@ -231,4 +250,10 @@
   text-align: center;
   margin: 10rem auto;
   z-index: 5;
+}
+
+@media screen and (max-width: 1600px) {
+  #gameSection #diceRoll {
+    display: block;
+  }
 }/*# sourceMappingURL=game.css.map */
