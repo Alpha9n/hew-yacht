@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/game.css">
     <link href="https://fonts.googleapis.com/css2?family=M+PLUS+1p:wght@100;300;400;500;700;800;900&display=swap" rel="stylesheet">
     <link rel ="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="css/particle.css">
     <script src='https://cdn.jsdelivr.net/gh/snd-lib/snd-lib@v1.1.2/dist/browser/snd.js?kit=01'></script>
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js" integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
 </head>
@@ -75,10 +76,11 @@
                             小計<br>
                             ボーナス+35
                         </td>
-                        <td class="player1"></td>
-                        <td class="player2"></td>
+                        <td class="player1 bonus"></td>
+                        <td class="player2 bonus"></td>
                     </tr>
                 </table>
+                <p><i class="fa-solid fa-dice-one"></i>~<i class="fa-solid fa-dice-six"></i>の合計スコアが63点以上でボーナス獲得</p>
                 <table>
                     <tr id="choice">
                         <td class="hand">
@@ -139,7 +141,7 @@
             </div>
             <!-- 一時的に設置 -->
             <div class="controls">
-                <a href="index.html">トップに戻る</a>
+                ゲームを終わらせる
             </div>
         </div>
         <div id="gameSection">
@@ -203,14 +205,50 @@
         </div>
     </div>
     <div id="resultScreen">
-        <div id="result">
+        <div class="result">
             <h2>結果</h2>
             <!-- ここにテーブルを挿入 -->
-            <a href="index.html">
-                <div class="button">ホームに戻る</div>
-            </a>
+            <p class="resultTitle">DRAW / 引き分け</p>
+            <div class="winorlose">
+                <div class="player1 loser">
+                    <i class="fa-solid fa-crown"></i>
+                    <div class="icon"></div>
+                    <p class="name">Player1</p>
+                </div>
+                <div class="player2 loser">
+                    <i class="fa-solid fa-crown"></i>
+                    <div class="icon"></div>
+                    <p class="name">Player2</p>
+                </div>
+            </div>
+
+            <ul>
+                <li>
+                    <a href="game.html?mode=local">
+                        <i class="fa-solid fa-rotate-left"></i>
+                        もう一度ゲームをプレイ
+                    </a>
+                </li>
+                <li>
+                    <a href="index.html">
+                        <i class="fa-solid fa-house"></i>
+                        ホームに戻る
+                    </a>
+                </li>
+            </ul>
         </div>
     </div>
+    <div class="confetti"><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+		<span></span><span></span><span></span><span></span><span></span>
+	</div>
     <script src="js/game.js" type="module"></script>
 </body>
 </html>

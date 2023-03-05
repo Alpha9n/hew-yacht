@@ -4,10 +4,12 @@
  */
 
 import { handJudge } from './handJudge.js';
-import { sendMessage } from './message.js';
+import { messageType, sendMessage } from './message.js';
 
 // 配列の中身を出力
 // document.addEventListener('click', () => {console.log("-------------------------");console.log(`hand - ${hand}`);console.log(`field - ${field}`);});
+
+// クラスにしておけばよかった！！！！
 
 /**
  * サイコロの目の定義
@@ -39,7 +41,15 @@ let isFirstRoll = true;
 
 let rollRemain = 3;
 
+let playerScoreData = [
+    {name: 'player1', score: 0, bonus: false},
+    {name: 'player2', score: 0, bonus: false}
+]
+
 const temp = 'tempSlot';
+const bonusBorder = 63;
+const bonusPoint = 35;
+const dummyPlayer = {name: null, score: 0, bonus: false};
 
 // let handPoints = [
 //     {name: 'ace', p1: 0, p2: 0},
@@ -53,7 +63,8 @@ const temp = 'tempSlot';
 //     {name: 'fullHouse', p1: 0, p2: 0},
 //     {name: 'smallStright', p1: 0, p2: 0},
 //     {name: 'bigStraight', p1: 0, p2: 0},
-//     {name: 'yacht', p1: 0, p2: 0}
+//     {name: 'yacht', p1: 0, p2: 0},
+//     {name: 'bonus', p1: 0, p2: 0}
 // ]
 
 /**
@@ -71,13 +82,38 @@ const getDiceList = (fieldType) => {
 }
 
 /**
+ * @deprecated
+ * @param {String} playerName 
+ */
+const getScoreData = (playerName) => {
+    playerScoreData.forEach(elem => {
+        if (elem.name === playerName) {
+            return elem;
+        }
+    })
+    return dummyPlayer;
+}
+
+const scoreFinalize = () => {
+    let finalizedData = [];
+    playerScoreData.forEach(elem => {
+        let fscore = elem.score;
+        if (elem.bonus) {
+            fscore += bonusPoint;
+        }
+        finalizedData.push({name: elem.name, score: fscore});
+    });
+    return finalizedData;
+}
+
+/**
  * 初期化関数
  * @param {GameMode} gameMode 
  */
 const init = (gameMode) => {
 
     if (gameMode == "local") {
-        console.log('ローカルモードの初期化処理');
+        sendMessage('ローカルモードの初期化処理', messageType.info);
         localInit();
         return true;
     } else if (gameMode == "online") {
@@ -94,11 +130,12 @@ const localInit = () => {
     field = [0, 0, 0, 0, 0];
     diceApply();
     // 表の初期化処理
-    applyTotalScoreToTable();
+    sumScores();
     applyRollCount();
     // プレイヤー1に最初のターンを与える
     $('.player1').addClass('active');
     $('#playerTurn').text('1');
+    sendMessage('ゲーム開始！', messageType.error);
 }
 
 /**
@@ -117,6 +154,7 @@ const diceApply = () => {
         element.children().remove();
         element.append(`<i class="fa-solid ${diceElem}"></i>`);
     });
+    $('.diceSlot').off('click');
     
     $('#randomDices').find('.diceSlot').on('click', registerDice);
     $('#determinedDice').find('.diceSlot').on('click', unRegisterDice);
@@ -173,7 +211,7 @@ const getTempPoints = () => {
 }
 
 /**
- * 実行時点での各役の点数を表に反映させる関数
+ * 表に実行時点での各役の点数を反映させる関数
  */
 const applyTempPointToTable = () => {
     let tempPoints = getTempPoints();
@@ -184,29 +222,74 @@ const applyTempPointToTable = () => {
             slot.text(Number(tempPoints[key]));
         }
     }
-    document
-        .getElementById('simpleHand');
+    document.getElementById('simpleHand');
 }
 
 /**
- * 表に実行時点での点数を反映させる関数
+ * 表に実行時点での合計点数を反映させる関数
  */
-const applyTotalScoreToTable = () => {
-    let p1TotalScore = 0;
-    let p2TotalScore = 0;
-    console.log("-------------------------");
-    $('.scoreSlot').each((elem, index) => {
-        if (!($(elem).hasClass(temp))) {
-            if ($(elem).hasClass('player1')) {
-                p1TotalScore += Number($(elem).text());
-            } else {
-                p2TotalScore += Number($(elem).text());
-            }
+const sumScores = () => {
+    // player1とplayer2のスコアを格納する変数
+    let player1Score = 0;
+    let player2Score = 0;
+    let p1BonusScore = 0;
+    let p2BonusScore = 0;
+  
+    // scoreSlotクラスの要素を全て取得し、各行の合計を計算する
+    const scoreSlots = document.querySelectorAll(".scoreSlot");
+    for (let i = 0; i < scoreSlots.length; i++) {
+        const scoreSlot = scoreSlots[i]
+        const score = parseInt(scoreSlot.textContent);
+        if (isNaN(score)) continue;
+        if (scoreSlot.classList.contains("player1")) {
+            isSimpleHand(scoreSlot,() => { p1BonusScore += score; });
+            player1Score += score;
+        } else if (scoreSlot.classList.contains("player2")) {
+            isSimpleHand(scoreSlot,() => { p2BonusScore += score; });
+            player2Score += score;
         }
-        console.log(`hoge: ${$(elem).text()}`)
+    }
+    
+    // 合計値を表示する
+    $('.player1.totalScore').text(player1Score);
+    $('.player2.totalScore').text(player2Score);
+    playerScoreData[0].score = player1Score;
+    playerScoreData[1].score = player2Score;
+
+    hasBonus(p1BonusScore, () => {
+        $('.player1.bonus').text(`+${bonusPoint}`);
+        playerScoreData[0].bonus == true;
+    }, () => {
+        $('.player1.bonus').text(`${p1BonusScore} / ${bonusBorder}`);
+        playerScoreData[0].bonus == true;
     });
-    $('.player1.totalScore').text(p1TotalScore);
-    $('.player2.totalScore').text(p2TotalScore);
+    hasBonus(p2BonusScore, () => {
+        $('.player2.bonus').text(`+${bonusPoint}`);
+        playerScoreData[1].bonus == true;
+    }, () => {
+        $('.player2.bonus').text(`${p2BonusScore} / ${bonusBorder}`);
+        playerScoreData[1].bonus == true;
+    });
+}
+
+/**
+ * 与えられた要素がSimpleHandの親要素を持つかを判定する関数
+ * @param {Element} scoreSlot 
+ * @param {Function} func 
+ */
+const isSimpleHand = (scoreSlot , func) => {
+    if (scoreSlot.parentNode.parentNode.parentNode.id === 'simpleHand') {
+        func();
+    } 
+    
+}
+
+const hasBonus = (simpleHandScore, func, elsefunc) => {
+    if(simpleHandScore >= bonusBorder) {
+        func();
+    } else {
+        elsefunc();
+    }
 }
 
 // ダイスロールボタンのイベント登録
@@ -248,7 +331,7 @@ const moveDice = (from, to, position) => {
     let toArray = getDiceList(to);
     let diceNum = fromArray[position];
     if (diceNum === void 0) {
-        console.log('its undefined');
+        sendMessage('its undefined', error);
         return;
     }
     removeDice(fromArray, position);
@@ -310,7 +393,7 @@ const turnNumApply = () => {
  */
 const playerTurn = (playerName) => {
     $('#playerTurn').text(playerName);
-    sendMessage(`player ${playerName} のターンです。`, 'info');
+    sendMessage(`player ${playerName} のターンです。`, messageType.info);
 }
 
 /**
@@ -340,16 +423,15 @@ $('.scoreSlot').on('click', (event) => {
             $('.player2').toggleClass('active');
             rollRemain = 3;
             applyRollCount();
-            applyTotalScoreToTable();
             if (turnCount == 1) playerTurn('1'); 
             else playerTurn('2');
             turnCount += 1;
-            console.log(turnCount);
+            sumScores();
             turnSkip();
             if (turnCount === 2) {
                 turnCount = 0;
                 if (Number(turnNum) >= 12) {
-                    $('#resultScreen').css('display', 'block');
+                    endGame();
                     return
                 } 
                 turnNum++;
@@ -363,14 +445,50 @@ $('.scoreSlot').on('click', (event) => {
 
 
 // ゲームの終了判定
+const endGame = () => {
+    sendMessage('ゲーム終了！', messageType.info);
+    $('#resultScreen').addClass('show');
+    displayResult();
+}
+
+const displayResult = () => {
+    const finalizedData = scoreFinalize();
+    let p1Result = finalizedData[0];
+    let p2Result = finalizedData[1];
+    const resultWrapper = $('.result');
+    const resultElem = resultWrapper.find('.winorlose');
+    const player1Elem = resultElem.find('.player1');
+    const player2Elem = resultElem.find('.player2');
+    if (p1Result.score > p2Result.score) {
+        player1Elem.removeClass('loser');
+        player1Elem.addClass('winner');
+        resultWrapper.find('.resultTitle').text('player1の勝ち');
+        summonParticles();
+    } else if (p1Result.score < p2Result.score) {
+        player2Elem.removeClass('loser');
+        player2Elem.addClass('winner');
+        resultWrapper.find('.resultTitle').text('player2の勝ち');
+        summonParticles();
+    }
+}
+
+const summonParticles = () => {
+    $('.confetti').addClass('show');
+
+}
 
 
 // ゲームの終了処理
     // ゲームの終了画面の表示
 
 $('#resultScreen').find('.button').on('click', () => {
+
 });
 
+// 後で消す
+$('.controls').on('click', () => {
+    endGame()
+})
 
 // 関数の実行
 onload = () => {

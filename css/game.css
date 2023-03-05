@@ -10,6 +10,11 @@
   font-family: "M PLUS 1p", sans-serif;
 }
 
+body {
+  position: relative;
+  overflow: hidden;
+}
+
 .dices {
   display: flex;
   justify-content: space-around;
@@ -44,6 +49,7 @@
   background-image: url(../images/table.jpg);
   background-size: cover;
   background-repeat: no-repeat;
+  z-index: 0;
 }
 #game #dataSection {
   display: block;
@@ -97,7 +103,7 @@
 #game #dataSection #scoreBoard table tr .tempSlot {
   color: #b4b4b4;
 }
-#game #dataSection #scoreBoard table tr .totalScore {
+#game #dataSection #scoreBoard table tr .totalScore, #game #dataSection #scoreBoard table tr .bonus {
   color: #0f0f0f;
 }
 #game #dataSection #scoreBoard table .title {
@@ -243,13 +249,160 @@
 
 #resultScreen {
   display: none;
-  position: fixed;
-  top: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 90vw;
+  height: 80vh;
   text-align: center;
-  margin: 10rem auto;
+  margin: 0 auto;
   z-index: 5;
+  color: #ffffff;
+  background: rgba(46, 46, 46, 0.71);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.1s ease-in-out;
+}
+#resultScreen.show {
+  display: block;
+  margin: -90vh auto;
+}
+#resultScreen .result {
+  padding: 2%;
+  height: 100%;
+  z-index: 5;
+}
+#resultScreen .result h2 {
+  font-weight: 800;
+  font-size: 3rem;
+}
+#resultScreen .result .resultTitle {
+  margin: 1rem;
+  font-weight: 900;
+  font-size: 5rem;
+}
+#resultScreen .result .winorlose {
+  width: 50%;
+  height: 40%;
+  margin: 2rem auto 9rem;
+  display: table;
+  justify-content: space-around;
+}
+#resultScreen .result .winorlose .icon {
+  margin: 1rem auto;
+  width: 5rem;
+  height: 5rem;
+  background-image: url(../images/playerIcon/default.jpg);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10rem;
+  border: #ffffff solid 5px;
+}
+#resultScreen .result .winorlose p {
+  font-weight: 800;
+  font-size: 2em;
+}
+#resultScreen .result .winorlose .player1 .icon {
+  background-image: url(../images/playerIcon/p1.jpg);
+}
+#resultScreen .result .winorlose .player2 .icon {
+  background-image: url(../images/playerIcon/p2.jpg);
+}
+#resultScreen .result .winorlose .winner {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+#resultScreen .result .winorlose .winner .fa-crown {
+  font-size: 4rem;
+  color: #d4af37;
+}
+#resultScreen .result .winorlose .winner .icon {
+  height: 7rem;
+  width: 7rem;
+}
+#resultScreen .result .winorlose .loser {
+  display: table-cell;
+  width: 40%;
+  vertical-align: middle;
+}
+#resultScreen .result .winorlose .loser .fa-crown {
+  display: none;
+}
+#resultScreen .result ul {
+  display: flex;
+  justify-content: flex-end;
+}
+#resultScreen .result ul li {
+  margin: auto 0 0 1rem;
+}
+#resultScreen .result ul li a {
+  margin-top: auto 0 0 90%;
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  transition: 0.3s;
+  padding: 0.2em 2em;
+}
+#resultScreen .result ul li a:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  background: #D9D9D9;
+  width: 2%;
+  height: 100%;
+  transition: 0.3s;
+  z-index: -1;
+  border-radius: 5px;
+}
+#resultScreen .result ul li a:hover {
+  color: #393939;
+}
+#resultScreen .result ul li a:hover:after {
+  width: 100%;
+}
+
+.confetti {
+  display: none;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  z-index: inherit;
+  pointer-events: none;
+}
+.confetti.show {
+  display: block;
+}
+
+.controls {
+  margin-top: auto 0 0 90%;
+  position: relative;
+  text-decoration: none;
+  width: -moz-fit-content;
+  width: fit-content;
+  color: #1f1f1f;
+  transition: 0.3s;
+  padding: 0.2em 2em;
+  z-index: 10;
+}
+.controls:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  background: #1f1f1f;
+  width: 2%;
+  height: 100%;
+  transition: 0.3s;
+  z-index: 1;
+  border-radius: 5px;
+}
+.controls:hover {
+  color: #ffffff;
+}
+.controls:hover:after {
+  width: 100%;
 }
 
 @media screen and (max-width: 1600px) {
