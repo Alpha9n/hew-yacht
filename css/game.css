@@ -119,6 +119,19 @@ body {
 #game #dataSection:hover {
   box-shadow: 9px 14px 31px -10px #3a3a3a;
 }
+#game #dataSection .controls {
+  display: none;
+  margin-top: 5px;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 0.2em 2em;
+  width: 50%;
+}
+#game #dataSection .controls:hover {
+  background-color: #161d32;
+  cursor: pointer;
+}
 #game #gameSection {
   width: 70%;
   overflow: hidden;
@@ -342,7 +355,7 @@ body {
   text-decoration: none;
   color: #ffffff;
   transition: 0.3s;
-  padding: 0.2em 2em;
+  padding: 1em 2em;
 }
 #resultScreen .result ul li a:after {
   position: absolute;
@@ -370,36 +383,6 @@ body {
 }
 .confetti.show {
   display: block;
-}
-
-.controls {
-  margin-top: auto 0 0 90%;
-  position: relative;
-  text-decoration: none;
-  width: -moz-fit-content;
-  width: fit-content;
-  color: #1f1f1f;
-  transition: 0.3s;
-  padding: 0.2em 2em;
-  z-index: 10;
-}
-.controls:after {
-  position: absolute;
-  left: 0;
-  top: 0;
-  content: "";
-  background: #1f1f1f;
-  width: 2%;
-  height: 100%;
-  transition: 0.3s;
-  z-index: 1;
-  border-radius: 5px;
-}
-.controls:hover {
-  color: #ffffff;
-}
-.controls:hover:after {
-  width: 100%;
 }
 
 @media screen and (max-width: 1600px) {

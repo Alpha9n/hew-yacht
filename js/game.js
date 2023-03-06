@@ -442,8 +442,6 @@ $('.scoreSlot').on('click', (event) => {
     }
 });
 
-
-
 // ゲームの終了判定
 const endGame = () => {
     sendMessage('ゲーム終了！', messageType.info);
@@ -459,6 +457,8 @@ const displayResult = () => {
     const resultElem = resultWrapper.find('.winorlose');
     const player1Elem = resultElem.find('.player1');
     const player2Elem = resultElem.find('.player2');
+    player1Elem.find('.point').text(`${p1Result.score}点`);
+    player2Elem.find('.point').text(`${p2Result.score}点`);
     if (p1Result.score > p2Result.score) {
         player1Elem.removeClass('loser');
         player1Elem.addClass('winner');
@@ -477,19 +477,13 @@ const summonParticles = () => {
 
 }
 
-
 // ゲームの終了処理
-    // ゲームの終了画面の表示
 
-$('#resultScreen').find('.button').on('click', () => {
-
-});
 
 // 後で消す
-$('.controls').on('click', () => {
+$('.endGame').on('click', () => {
     endGame()
-})
-
+});
 // 関数の実行
 onload = () => {
     const url = new URL(location.href);
