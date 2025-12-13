@@ -1,16 +1,131 @@
-# React + Vite
+# ヨット (Yacht Dice Game)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Reactで実装されたヨット(ヤッツィー)ダイスゲーム
 
-Currently, two official plugins are available:
+## 概要
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+このプロジェクトは、クラシックなヨットダイスゲームをReactで実装したものです。
+将来的なマルチプレイヤー機能を想定した設計となっています。
 
-## React Compiler
+## 機能
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **練習モード**: ローカルで2プレイヤーのゲームをプレイ
+- **役判定システム**: 12種類の役を自動判定
+- **スコア管理**: リアルタイムでスコアを計算・表示
+- **ボーナスシステム**: 上位役の合計が63点以上で35点ボーナス
+- **結果画面**: ゲーム終了時の勝者発表と詳細結果
 
-## Expanding the ESLint configuration
+## マルチプレイヤー対応設計
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### アーキテクチャの特徴
+
+1. **ゲームロジックとUIの分離**
+   - `src/utils/` にゲームロジックを配置
+   - UI コンポーネントとは独立して動作
+
+2. **状態管理**
+   - React Context API を使用
+   - プレイヤーごとの状態を管理
+   - 将来的にWebSocket通信に対応可能
+
+3. **拡張性**
+   - ゲームモード (`local`, `online`) の切り替え機構
+   - プレイヤー数の拡張が容易
+   - ネットワーク機能の追加が可能
+
+### ディレクトリ構造
+
+```
+src/
+├── components/        # UIコンポーネント
+│   ├── DiceArea.jsx
+│   ├── ResultScreen.jsx
+│   ├── ScoreBoard.jsx
+│   └── TurnInfo.jsx
+├── contexts/          # 状態管理
+│   └── GameContext.jsx
+├── pages/            # ページコンポーネント
+│   ├── Game.jsx
+│   └── Home.jsx
+├── utils/            # ゲームロジック
+│   ├── gameLogic.js
+│   └── handJudge.js
+└── styles/           # スタイルシート
+```
+
+## セットアップ
+
+### 必要な環境
+
+- Node.js 18.x 以上
+- npm または yarn
+
+### インストール
+
+```bash
+# 依存関係のインストール
+npm install
+
+# 開発サーバーの起動
+npm run dev
+
+# 本番ビルド
+npm run build
+
+# ビルドのプレビュー
+npm run preview
+```
+
+## 開発
+
+### リンティング
+
+```bash
+npm run lint
+```
+
+### 技術スタック
+
+- **React 19.2**: UIフレームワーク
+- **Vite 7.2**: ビルドツール
+- **React Router DOM**: ルーティング
+- **Font Awesome**: アイコン
+- **Google Fonts (M PLUS 1p)**: 日本語フォント
+
+## ゲームルール
+
+### 役一覧
+
+| 役名 | 説明 | 点数 |
+|-----|------|------|
+| エース | 1の目の合計 | 1×個数 |
+| デュース | 2の目の合計 | 2×個数 |
+| トレイ | 3の目の合計 | 3×個数 |
+| フォー | 4の目の合計 | 4×個数 |
+| ファイブ | 5の目の合計 | 5×個数 |
+| シックス | 6の目の合計 | 6×個数 |
+| チョイス | 全ての目の合計 | 合計値 |
+| フォーダイス | 同じ目が4個以上 | その目×4 |
+| フルハウス | 3個と2個のペア | 25点 |
+| S.ストレート | 4つの連続した目 | 30点 |
+| B.ストレート | 5つの連続した目 | 40点 |
+| ヨット | 全て同じ目 | 50点 |
+
+### プレイ方法
+
+1. サイコロを振る（最大3回まで）
+2. 保持したいサイコロをクリックして手持ちに移動
+3. 役を選んでスコアを確定
+4. 12ラウンド終了後、合計点で勝敗を決定
+
+## 今後の拡張予定
+
+- [ ] オンラインマルチプレイヤー機能
+- [ ] ルーム作成・参加システム
+- [ ] チャット機能
+- [ ] ランキングシステム
+- [ ] カスタムルール設定
+
+## ライセンス
+
+このプロジェクトはオープンソースです。

@@ -142,9 +142,10 @@ export const calculatePlayerScore = (scores) => {
 
 /**
  * ゲーム終了判定
- * @param {Object} player1Scores - プレイヤー1のスコア
- * @param {Object} player2Scores - プレイヤー2のスコア
- * @returns {boolean}
+ * Checks if all hands have been scored by both players
+ * @param {Object} player1Scores - プレイヤー1のスコアオブジェクト (各役名がキー、スコア値がnumberまたはnull)
+ * @param {Object} player2Scores - プレイヤー2のスコアオブジェクト (各役名がキー、スコア値がnumberまたはnull)
+ * @returns {boolean} - すべての役がスコア登録済みの場合true
  */
 export const isGameOver = (player1Scores, player2Scores) => {
   const allHands = [
