@@ -104,6 +104,24 @@ export const GameProvider = ({ children }) => {
     [hand, field]
   );
 
+  // End game
+  const endGame = useCallback(() => {
+    const p1Result = calculatePlayerScore(player1Scores);
+    const p2Result = calculatePlayerScore(player2Scores);
+
+    let gameWinner = null;
+    if (p1Result.total > p2Result.total) {
+      gameWinner = 'player1';
+    } else if (p2Result.total > p1Result.total) {
+      gameWinner = 'player2';
+    } else {
+      gameWinner = 'draw';
+    }
+
+    setWinner(gameWinner);
+    setGameEnded(true);
+  }, [player1Scores, player2Scores]);
+
   // Register score
   const registerScore = useCallback(
     (handName) => {
@@ -145,26 +163,8 @@ export const GameProvider = ({ children }) => {
         }
       }
     },
-    [currentPlayer, player1Scores, player2Scores, rollRemain, tempScores, turnNum]
+    [currentPlayer, player1Scores, player2Scores, rollRemain, tempScores, turnNum, endGame]
   );
-
-  // End game
-  const endGame = useCallback(() => {
-    const p1Result = calculatePlayerScore(player1Scores);
-    const p2Result = calculatePlayerScore(player2Scores);
-
-    let gameWinner = null;
-    if (p1Result.total > p2Result.total) {
-      gameWinner = 'player1';
-    } else if (p2Result.total > p1Result.total) {
-      gameWinner = 'player2';
-    } else {
-      gameWinner = 'draw';
-    }
-
-    setWinner(gameWinner);
-    setGameEnded(true);
-  }, [player1Scores, player2Scores]);
 
   const value = {
     // State
