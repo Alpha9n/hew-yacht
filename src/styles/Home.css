@@ -1,0 +1,84 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  transition: all 0.1s ease-in-out;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-family: "M PLUS 1p", sans-serif;
+}
+
+.wrapper {
+  height: 100vh;
+  width: 100vw;
+  background-color: rgb(204, 204, 204);
+  background-image: url(/images/dice.jpg);
+  background-size: cover;
+  background-position-y: bottom;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+.wrapper .filter {
+  background-color: rgba(99, 99, 99, 0.1921568627);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  width: 100%;
+  height: 100%;
+}
+.wrapper .filter .menu {
+  height: calc(100% - 10rem);
+  padding: 5rem 8rem;
+  display: flex;
+  flex-direction: column;
+}
+.wrapper .filter .menu h1 {
+  font-weight: 900;
+  font-size: 5rem;
+  color: aliceblue;
+}
+.wrapper .filter .menu .gameMode {
+  margin-top: auto;
+}
+.wrapper .filter .menu .gameMode li {
+  font-weight: 800;
+  font-size: 2rem;
+  margin-top: 0.8em;
+}
+.wrapper .filter .menu .gameMode li .button {
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  transition: 0.3s;
+  padding: 0.2em 2em;
+}
+.wrapper .filter .menu .gameMode li .button:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  background: #D9D9D9;
+  width: 2%;
+  height: 100%;
+  transition: 0.3s;
+  z-index: -1;
+  border-radius: 5px;
+}
+.wrapper .filter .menu .gameMode li .button:hover {
+  color: #393939;
+}
+.wrapper .filter .menu .gameMode li .button:hover:after {
+  width: 100%;
+}
+.wrapper .filter .menu .gameMode li .comingsoon {
+  position: relative;
+  text-decoration: line-through;
+  pointer-events: none;
+  color: #8a8a8a;
+  transition: 0.3s;
+  padding: 0.2em 2em;
+}
+.wrapper .filter .menu .gameMode li .comingsoon:after {
+  background: #8a8a8a;
+}/*# sourceMappingURL=index.css.map */

@@ -1,0 +1,392 @@
+@charset "UTF-8";
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  transition: all 0.1s ease-in-out;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+  font-family: "M PLUS 1p", sans-serif;
+}
+
+body {
+  position: relative;
+  overflow: hidden;
+}
+
+.dices {
+  display: flex;
+  justify-content: space-around;
+}
+.dices .diceSlot {
+  color: white;
+  margin: 0 5px;
+  font-size: 4rem;
+}
+.dices .diceSlot i {
+  text-shadow: 0px 6px 0px #0f0f0f;
+}
+.dices .diceSlot i:hover {
+  text-shadow: 0px 0px 0px #0f0f0f;
+  transform: translateY(6px);
+}
+.dices .diceSlot .fa-square {
+  color: rgb(131, 131, 131);
+  text-shadow: 0px 0px 0px #0f0f0f;
+  transform: translateY(6px);
+}
+
+#game {
+  background-color: rgb(238, 238, 238);
+  margin: 2rem auto;
+  width: 90vw;
+  height: 89vh;
+  padding: 20px;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 10px;
+  background-image: url(/images/table.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+#game #dataSection {
+  display: block;
+  width: 30%;
+  overflow: scroll;
+  padding: 1rem;
+  margin: 10px;
+  background-color: rgb(238, 238, 238);
+  box-shadow: 9px 14px 31px -3px #3a3a3a;
+}
+#game #dataSection h2 {
+  text-align: center;
+  font-size: 2rem;
+  color: rgb(78, 78, 78);
+}
+#game #dataSection #scoreBoard table {
+  margin: 5px;
+  width: 90%;
+  border-collapse: collapse;
+  border: 3px solid rgb(78, 78, 78);
+}
+#game #dataSection #scoreBoard table tr {
+  border: 3px solid rgb(78, 78, 78);
+}
+#game #dataSection #scoreBoard table tr td {
+  padding: 5px 5px;
+  border: 3px solid rgb(78, 78, 78);
+  overflow: hidden;
+}
+#game #dataSection #scoreBoard table tr .active {
+  background-color: rgba(254, 245, 71, 0.551);
+  cursor: pointer;
+}
+#game #dataSection #scoreBoard table tr .hand {
+  width: 50%;
+  font-size: small;
+}
+#game #dataSection #scoreBoard table tr .hand i {
+  font-size: 1.2rem;
+  margin: 5px 5px;
+}
+#game #dataSection #scoreBoard table tr .total {
+  padding: 10px 0;
+}
+#game #dataSection #scoreBoard table tr .player1, #game #dataSection #scoreBoard table tr .player2 {
+  width: 25%;
+}
+#game #dataSection #scoreBoard table tr:hover {
+  background-color: rgb(156, 156, 156);
+}
+#game #dataSection #scoreBoard table tr .tempSlot {
+  color: #b4b4b4;
+}
+#game #dataSection #scoreBoard table tr .totalScore, #game #dataSection #scoreBoard table tr .bonus {
+  color: #0f0f0f;
+}
+#game #dataSection #scoreBoard table .title {
+  font-weight: bold;
+  font-size: medium;
+  color: white;
+  background-color: rgb(78, 78, 78);
+  text-align: center;
+}
+#game #dataSection #scoreBoard table .title .player1, #game #dataSection #scoreBoard table .title .player2 {
+  background-color: rgb(238, 238, 238);
+}
+#game #dataSection:hover {
+  box-shadow: 9px 14px 31px -10px #3a3a3a;
+}
+#game #dataSection .controls {
+  display: none;
+  margin-top: 5px;
+  background-color: #3a3a3a;
+  color: #ffffff;
+  border-radius: 5px;
+  padding: 0.2em 2em;
+  width: 50%;
+}
+#game #dataSection .controls:hover {
+  background-color: #161d32;
+  cursor: pointer;
+}
+#game #gameSection {
+  width: 70%;
+  overflow: hidden;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.24);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(5px);
+          backdrop-filter: blur(5px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+#game #gameSection #determinedDice {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px 50px;
+  display: flex;
+  background-color: rgb(78, 78, 78);
+  box-shadow: 9px 14px 31px -3px #9e9e9e;
+  border-radius: 100px;
+  display: block;
+}
+#game #gameSection #determinedDice h2 {
+  font-size: 1.5rem;
+  color: white;
+  text-align: center;
+}
+#game #gameSection #determinedDice p {
+  font-size: 1rem;
+  color: rgb(209, 209, 209);
+  text-align: center;
+}
+#game #gameSection #diceRoll {
+  width: 80%;
+  display: flex;
+  justify-content: space-around;
+  background-color: #3a3a3a;
+  padding: 2rem;
+  margin: 5rem auto;
+  border-radius: 10px;
+  align-items: center;
+}
+#game #gameSection #diceRoll .rollButton {
+  display: table;
+  padding: 0.5em 1em;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-decoration: none;
+  text-align: center;
+  background: #324170; /*ボタン色*/
+  color: #FFF;
+  border-bottom: solid 4px #080a10;
+  border-radius: 10px;
+  cursor: pointer;
+}
+#game #gameSection #diceRoll .rollButton .rollCount {
+  color: #c7c7c7;
+}
+#game #gameSection #diceRoll .rollButton:hover {
+  background: #161d32;
+}
+#game #gameSection #diceRoll .rollButton:active {
+  transform: translateY(4px); /*下に動く*/
+  border-bottom: none; /*線を消す*/
+}
+#game #gameSection #diceRoll .rollButton i {
+  display: table-cell;
+  height: -moz-fit-content;
+  height: fit-content;
+  vertical-align: middle;
+  font-size: 1.5rem;
+}
+#game #gameSection #diceRoll #randomDices {
+  display: flex;
+  justify-content: space-around;
+}
+#game #gameSection #diceRoll #randomDices .diceSlot {
+  color: white;
+  margin: 0 5px;
+  margin-right: 0.5em;
+  font-size: 5rem;
+}
+#game #gameSection #diceRoll #randomDices .diceSlot i {
+  text-shadow: 0px 6px 0px #0f0f0f;
+}
+#game #gameSection #diceRoll #randomDices .diceSlot i:hover {
+  text-shadow: 0px 0px 0px #0f0f0f;
+  transform: translateY(6px);
+}
+#game #gameSection #diceRoll #randomDices .diceSlot .fa-square {
+  color: rgb(131, 131, 131);
+  text-shadow: 0px 0px 0px #0f0f0f;
+  transform: translateY(6px);
+}
+#game #gameSection #turnData {
+  width: 70%;
+  border: 1px solid;
+  margin: 30px auto;
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-around;
+  background-color: rgb(78, 78, 78);
+  align-items: center;
+}
+#game #gameSection #turnData * {
+  text-align: center;
+  font-size: 1.5rem;
+  color: white;
+  font-weight: 500;
+}
+#game #gameSection #turnData .leftContent p {
+  font-size: 3em;
+  font-weight: 100;
+  color: rgb(199, 199, 199);
+}
+#game #gameSection #turnData .leftContent span {
+  font-weight: 400;
+  font-size: 1.5em;
+  margin: 2px;
+}
+#game #gameSection #turnData .rightContent p {
+  font-size: 2rem;
+}
+#game #gameSection #turnData .rightContent span {
+  font-weight: 400;
+  font-size: 2.5rem;
+}
+
+#resultScreen {
+  display: none;
+  width: 90vw;
+  height: 80vh;
+  text-align: center;
+  margin: 0 auto;
+  z-index: 5;
+  color: #ffffff;
+  background: rgba(46, 46, 46, 0.71);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.1s ease-in-out;
+}
+#resultScreen.show {
+  display: block;
+  margin: -90vh auto;
+}
+#resultScreen .result {
+  padding: 2%;
+  height: 100%;
+  z-index: 5;
+}
+#resultScreen .result h2 {
+  font-weight: 800;
+  font-size: 3rem;
+}
+#resultScreen .result .resultTitle {
+  margin: 1rem;
+  font-weight: 900;
+  font-size: 5rem;
+}
+#resultScreen .result .winorlose {
+  width: 50%;
+  height: 40%;
+  margin: 2rem auto 9rem;
+  display: table;
+  justify-content: space-around;
+}
+#resultScreen .result .winorlose .icon {
+  margin: 1rem auto;
+  width: 5rem;
+  height: 5rem;
+  background-image: url(/images/playerIcon/default.jpg);
+  background-size: cover;
+  background-position: center;
+  border-radius: 10rem;
+  border: #ffffff solid 5px;
+}
+#resultScreen .result .winorlose p {
+  font-weight: 800;
+  font-size: 2em;
+}
+#resultScreen .result .winorlose .player1 .icon {
+  background-image: url(/images/playerIcon/p1.jpg);
+}
+#resultScreen .result .winorlose .player2 .icon {
+  background-image: url(/images/playerIcon/p2.jpg);
+}
+#resultScreen .result .winorlose .winner {
+  display: table-cell;
+  width: 50%;
+  vertical-align: middle;
+}
+#resultScreen .result .winorlose .winner .fa-crown {
+  font-size: 4rem;
+  color: #d4af37;
+}
+#resultScreen .result .winorlose .winner .icon {
+  height: 7rem;
+  width: 7rem;
+}
+#resultScreen .result .winorlose .loser {
+  display: table-cell;
+  width: 40%;
+  vertical-align: middle;
+}
+#resultScreen .result .winorlose .loser .fa-crown {
+  display: none;
+}
+#resultScreen .result ul {
+  display: flex;
+  justify-content: flex-end;
+}
+#resultScreen .result ul li {
+  margin: auto 0 0 1rem;
+}
+#resultScreen .result ul li a {
+  margin-top: auto 0 0 90%;
+  position: relative;
+  text-decoration: none;
+  color: #ffffff;
+  transition: 0.3s;
+  padding: 1em 2em;
+}
+#resultScreen .result ul li a:after {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: "";
+  background: #D9D9D9;
+  width: 2%;
+  height: 100%;
+  transition: 0.3s;
+  z-index: -1;
+  border-radius: 5px;
+}
+#resultScreen .result ul li a:hover {
+  color: #393939;
+}
+#resultScreen .result ul li a:hover:after {
+  width: 100%;
+}
+
+.confetti {
+  display: none;
+  position: fixed;
+  pointer-events: none;
+}
+.confetti.show {
+  display: block;
+}
+
+@media screen and (max-width: 1600px) {
+  #gameSection #diceRoll {
+    display: block;
+  }
+}/*# sourceMappingURL=game.css.map */
