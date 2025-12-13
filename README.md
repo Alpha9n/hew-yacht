@@ -76,6 +76,25 @@ npm run build
 npm run preview
 ```
 
+## デプロイメント
+
+### Cloudflare Pages
+
+このプロジェクトは Cloudflare Pages にデプロイするように設定されています。
+
+**自動デプロイ（推奨）**:
+1. Cloudflare Dashboard で GitHub リポジトリを接続
+2. ビルドコマンド: `npm run build`
+3. 出力ディレクトリ: `dist`
+
+詳細は [DEPLOYMENT.md](./DEPLOYMENT.md) を参照してください。
+
+**手動デプロイ**:
+```bash
+# Wrangler CLI を使用
+npm run pages:deploy
+```
+
 ## 開発
 
 ### リンティング
