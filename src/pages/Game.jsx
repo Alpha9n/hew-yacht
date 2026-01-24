@@ -10,7 +10,7 @@ import '../styles/particle.css';
 
 const Game = () => {
   const [searchParams] = useSearchParams();
-  const { startGame, calculateTempScores, gameStarted, gameEnded, hand, field } = useGame();
+  const { startGame, calculateTempScores, handleRollDice, gameStarted, gameEnded, hand, field } = useGame();
 
   useEffect(() => {
     const mode = searchParams.get('mode') || 'local';
@@ -22,6 +22,27 @@ const Game = () => {
       calculateTempScores();
     }
   }, [hand, field, gameStarted, calculateTempScores]);
+
+  // Add keyboard event listener for spacebar to roll dice
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      // Check for spacebar (key code 32 or event.key === ' ')
+      if (event.key === ' ' || event.keyCode === 32) {
+        event.preventDefault(); // Prevent page scroll
+        handleRollDice();
+      }
+    };
+
+    // Add event listener when game is started
+    if (gameStarted && !gameEnded) {
+      document.addEventListener('keydown', handleKeyDown);
+    }
+
+    // Cleanup event listener
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [gameStarted, gameEnded, handleRollDice]);
 
   return (
     <div id="game">
