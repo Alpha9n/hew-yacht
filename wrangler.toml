@@ -1,0 +1,8 @@
+name = "hew-yacht"
+compatibility_date = "2024-12-13"
+
+# Cloudflare Pages configuration for React SPA
+pages_build_output_dir = "dist"
+
+# Node.js compatibility for future server-side features
+compatibility_flags = ["nodejs_compat"]
