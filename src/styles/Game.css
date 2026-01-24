@@ -260,26 +260,59 @@ body {
   font-size: 2.5rem;
 }
 
+/* Result Screen Overlay */
+.result-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
 #resultScreen {
-  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 90vw;
+  max-width: 1200px;
   height: 80vh;
+  max-height: 800px;
   text-align: center;
-  margin: 0 auto;
-  z-index: 5;
+  z-index: 1001;
   color: #ffffff;
-  background: rgba(46, 46, 46, 0.71);
+  background: rgba(46, 46, 46, 0.95);
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: all 0.1s ease-in-out;
+  animation: slideIn 0.3s ease-out;
 }
-#resultScreen.show {
-  display: block;
-  margin: -90vh auto;
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -45%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
 #resultScreen .result {
   padding: 2%;
   height: 100%;
@@ -377,9 +410,13 @@ body {
 }
 
 .confetti {
-  display: none;
   position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   pointer-events: none;
+  z-index: 1002;
 }
 .confetti.show {
   display: block;
